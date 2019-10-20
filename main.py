@@ -43,7 +43,18 @@ class MainWindow(QDialog, form_class):
         self.dimensions = [self.x1_dim.value(), self.x2_dim.value(),
                                     self.x3_dim.value(), self.y_dim.value()]
         self.degrees = [self.x1_deg.value(), self.x2_deg.value(), self.x3_deg.value()]
-        self.type = 'null'
+        
+        self.method = 'null'
+        if self.radioGrad.isChecked():
+            self.method = 'grad'
+        elif self.radioConjucateGrad.isChecked():
+            self.method = 'conjucate'
+        elif self.radioCoordDesc.isChecked():
+            self.method = 'coordDesc'
+        elif self.radioLSTM.isChecked():
+            self.method = 'LSTM'
+
+        self.type = 'null'  
         if self.radio_cheb.isChecked():
             self.type = 'chebyshev'
         elif self.radio_legend.isChecked():
@@ -52,6 +63,7 @@ class MainWindow(QDialog, form_class):
             self.type = 'laguerre'
         elif self.radio_herm.isChecked():
             self.type = 'hermit'
+
         self.input_path = ''
         self.output_path = ''
         self.samples_num = self.sample_spin.value()
@@ -142,6 +154,20 @@ class MainWindow(QDialog, form_class):
                 self.type = 'hermit'
         return
 
+    @pyqtSlot(bool)
+    def method_modified(self, isdown):
+        if (isdown):
+            sender = self.sender().objectName()
+            if sender == 'radioGrad':
+                self.method = 'grad'
+            elif sender == 'radioConjucateGrad':
+                self.method = 'conjucate'
+            elif sender == 'radioCoordDesc':
+                self.method = 'coordDesc'
+            elif sender == 'radioLSTM':
+                self.method = 'LSTM'
+        return
+
     @pyqtSlot()
     def plot_clicked(self):
         if self.solution:
@@ -182,6 +208,6 @@ class MainWindow(QDialog, form_class):
 
 # -----------------------------------------------------#
 form = MainWindow()
-form.setWindowTitle('СА - 2 (Куриленко, Онанко, Титова, Рубленко)')
+form.setWindowTitle('СА - 2 (Климчук, Малярчук, Смірнов)')
 form.show()
 sys.exit(app.exec_())

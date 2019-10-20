@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1133</width>
+    <width>1149</width>
     <height>600</height>
    </rect>
   </property>
@@ -14,88 +14,691 @@
    <palette>
     <active>
      <colorrole role="Button">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>0</red>
-        <green>170</green>
-        <blue>0</blue>
-       </color>
+      <brush brushstyle="ConicalGradientPattern">
+       <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+        <gradientstop position="0.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.375000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.423533000000000">
+         <color alpha="145">
+          <red>251</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.450000000000000">
+         <color alpha="208">
+          <red>247</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.477581000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>244</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.518717000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>218</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.550000000000000">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.577540000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>203</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.625000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="1.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+       </gradient>
       </brush>
      </colorrole>
      <colorrole role="Base">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>170</red>
-        <green>0</green>
-        <blue>0</blue>
-       </color>
+      <brush brushstyle="ConicalGradientPattern">
+       <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+        <gradientstop position="0.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.375000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.423533000000000">
+         <color alpha="145">
+          <red>251</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.450000000000000">
+         <color alpha="208">
+          <red>247</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.477581000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>244</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.518717000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>218</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.550000000000000">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.577540000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>203</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.625000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="1.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+       </gradient>
       </brush>
      </colorrole>
      <colorrole role="Window">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>0</red>
-        <green>85</green>
-        <blue>127</blue>
-       </color>
+      <brush brushstyle="ConicalGradientPattern">
+       <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+        <gradientstop position="0.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.375000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.423533000000000">
+         <color alpha="145">
+          <red>251</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.450000000000000">
+         <color alpha="208">
+          <red>247</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.477581000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>244</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.518717000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>218</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.550000000000000">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.577540000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>203</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.625000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="1.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+       </gradient>
       </brush>
      </colorrole>
     </active>
     <inactive>
      <colorrole role="Button">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>0</red>
-        <green>170</green>
-        <blue>0</blue>
-       </color>
+      <brush brushstyle="ConicalGradientPattern">
+       <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+        <gradientstop position="0.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.375000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.423533000000000">
+         <color alpha="145">
+          <red>251</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.450000000000000">
+         <color alpha="208">
+          <red>247</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.477581000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>244</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.518717000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>218</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.550000000000000">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.577540000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>203</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.625000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="1.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+       </gradient>
       </brush>
      </colorrole>
      <colorrole role="Base">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>170</red>
-        <green>0</green>
-        <blue>0</blue>
-       </color>
+      <brush brushstyle="ConicalGradientPattern">
+       <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+        <gradientstop position="0.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.375000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.423533000000000">
+         <color alpha="145">
+          <red>251</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.450000000000000">
+         <color alpha="208">
+          <red>247</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.477581000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>244</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.518717000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>218</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.550000000000000">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.577540000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>203</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.625000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="1.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+       </gradient>
       </brush>
      </colorrole>
      <colorrole role="Window">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>0</red>
-        <green>85</green>
-        <blue>127</blue>
-       </color>
+      <brush brushstyle="ConicalGradientPattern">
+       <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+        <gradientstop position="0.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.375000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.423533000000000">
+         <color alpha="145">
+          <red>251</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.450000000000000">
+         <color alpha="208">
+          <red>247</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.477581000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>244</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.518717000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>218</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.550000000000000">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.577540000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>203</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.625000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="1.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+       </gradient>
       </brush>
      </colorrole>
     </inactive>
     <disabled>
      <colorrole role="Button">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>0</red>
-        <green>170</green>
-        <blue>0</blue>
-       </color>
+      <brush brushstyle="ConicalGradientPattern">
+       <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+        <gradientstop position="0.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.375000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.423533000000000">
+         <color alpha="145">
+          <red>251</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.450000000000000">
+         <color alpha="208">
+          <red>247</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.477581000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>244</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.518717000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>218</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.550000000000000">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.577540000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>203</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.625000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="1.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+       </gradient>
       </brush>
      </colorrole>
      <colorrole role="Base">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>0</red>
-        <green>85</green>
-        <blue>127</blue>
-       </color>
+      <brush brushstyle="ConicalGradientPattern">
+       <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+        <gradientstop position="0.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.375000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.423533000000000">
+         <color alpha="145">
+          <red>251</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.450000000000000">
+         <color alpha="208">
+          <red>247</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.477581000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>244</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.518717000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>218</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.550000000000000">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.577540000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>203</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.625000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="1.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+       </gradient>
       </brush>
      </colorrole>
      <colorrole role="Window">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>0</red>
-        <green>85</green>
-        <blue>127</blue>
-       </color>
+      <brush brushstyle="ConicalGradientPattern">
+       <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+        <gradientstop position="0.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.375000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.423533000000000">
+         <color alpha="145">
+          <red>251</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.450000000000000">
+         <color alpha="208">
+          <red>247</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.477581000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>244</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.518717000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>218</green>
+          <blue>71</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.550000000000000">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.577540000000000">
+         <color alpha="130">
+          <red>255</red>
+          <green>203</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="0.625000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+        <gradientstop position="1.000000000000000">
+         <color alpha="69">
+          <red>255</red>
+          <green>255</green>
+          <blue>0</blue>
+         </color>
+        </gradientstop>
+       </gradient>
       </brush>
      </colorrole>
     </disabled>
@@ -353,88 +956,691 @@
       <palette>
        <active>
         <colorrole role="Button">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>55</red>
-           <green>62</green>
-           <blue>200</blue>
-          </color>
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
          </brush>
         </colorrole>
         <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>145</red>
-           <green>162</green>
-           <blue>200</blue>
-          </color>
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
          </brush>
         </colorrole>
         <colorrole role="Window">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>36</red>
-           <green>99</green>
-           <blue>200</blue>
-          </color>
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
          </brush>
         </colorrole>
        </active>
        <inactive>
         <colorrole role="Button">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>55</red>
-           <green>62</green>
-           <blue>200</blue>
-          </color>
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
          </brush>
         </colorrole>
         <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>145</red>
-           <green>162</green>
-           <blue>200</blue>
-          </color>
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
          </brush>
         </colorrole>
         <colorrole role="Window">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>36</red>
-           <green>99</green>
-           <blue>200</blue>
-          </color>
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
          </brush>
         </colorrole>
        </inactive>
        <disabled>
         <colorrole role="Button">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>55</red>
-           <green>62</green>
-           <blue>200</blue>
-          </color>
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
          </brush>
         </colorrole>
         <colorrole role="Base">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>36</red>
-           <green>99</green>
-           <blue>200</blue>
-          </color>
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
          </brush>
         </colorrole>
         <colorrole role="Window">
-         <brush brushstyle="SolidPattern">
-          <color alpha="255">
-           <red>36</red>
-           <green>99</green>
-           <blue>200</blue>
-          </color>
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
          </brush>
         </colorrole>
        </disabled>
@@ -570,7 +1776,7 @@ p, li { white-space: pre-wrap; }
       <property name="title">
        <string>Методи вирішення:</string>
       </property>
-      <widget class="QRadioButton" name="radioButton">
+      <widget class="QRadioButton" name="radioGrad">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -583,7 +1789,7 @@ p, li { white-space: pre-wrap; }
         <string>Градієнтний метод</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="radioButton_2">
+      <widget class="QRadioButton" name="radioCoordDesc">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -596,7 +1802,7 @@ p, li { white-space: pre-wrap; }
         <string>Метод покординатного спуску</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="radioButton_3">
+      <widget class="QRadioButton" name="radioLSTM">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -609,7 +1815,7 @@ p, li { white-space: pre-wrap; }
         <string>Метод найменших квадратів</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="radioButton_4">
+      <widget class="QRadioButton" name="radioConjucateGrad">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -1324,93 +2530,57 @@ p, li { white-space: pre-wrap; }
        </disabled>
       </palette>
      </property>
+     <property name="focusPolicy">
+      <enum>Qt::WheelFocus</enum>
+     </property>
+     <property name="layoutDirection">
+      <enum>Qt::LeftToRight</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">max-width: 250px;</string>
+     </property>
      <property name="title">
       <string>ДАНІ</string>
      </property>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>12</x>
-        <y>28</y>
-        <width>49</width>
-        <height>16</height>
-       </rect>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetFixedSize</enum>
       </property>
-      <property name="styleSheet">
-       <string notr="true">background-color: rgb(170, 170, 127);</string>
-      </property>
-      <property name="text">
-       <string>Вибірка:</string>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="sample_spin">
-      <property name="geometry">
-       <rect>
-        <x>545</x>
-        <y>88</y>
-        <width>45</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="maximum">
-       <number>999</number>
-      </property>
-      <property name="value">
-       <number>45</number>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="line_input">
-      <property name="geometry">
-       <rect>
-        <x>270</x>
-        <y>87</y>
-        <width>137</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="placeholderText">
-       <string>Вхідні дані</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="select_input">
-      <property name="geometry">
-       <rect>
-        <x>471</x>
-        <y>86</y>
-        <width>30</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="line_output">
-      <property name="geometry">
-       <rect>
-        <x>68</x>
-        <y>87</y>
-        <width>137</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="placeholderText">
-       <string>Вихідні дані</string>
-      </property>
-     </widget>
-     <widget class="QToolButton" name="select_output">
-      <property name="geometry">
-       <rect>
-        <x>508</x>
-        <y>86</y>
-        <width>30</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>...</string>
-      </property>
-     </widget>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(170, 170, 127);</string>
+        </property>
+        <property name="text">
+         <string>Вибірка:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="line_input">
+        <property name="placeholderText">
+         <string>Вхідні дані</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="line_output">
+        <property name="placeholderText">
+         <string>Вихідні дані</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSpinBox" name="sample_spin">
+        <property name="maximum">
+         <number>999</number>
+        </property>
+        <property name="value">
+         <number>45</number>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>
@@ -1429,9 +2599,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>y_dim</tabstop>
   <tabstop>sample_spin</tabstop>
   <tabstop>line_input</tabstop>
-  <tabstop>select_input</tabstop>
   <tabstop>line_output</tabstop>
-  <tabstop>select_output</tabstop>
   <tabstop>exec_button</tabstop>
   <tabstop>plot_button</tabstop>
   <tabstop>results_field</tabstop>
@@ -1759,34 +2927,66 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>select_output</sender>
-   <signal>clicked()</signal>
+   <sender>radioGrad</sender>
+   <signal>toggled(bool)</signal>
    <receiver>Form</receiver>
-   <slot>output_clicked()</slot>
+   <slot>method_modified(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>557</x>
-     <y>136</y>
+     <x>990</x>
+     <y>70</y>
     </hint>
     <hint type="destinationlabel">
-     <x>309</x>
-     <y>199</y>
+     <x>574</x>
+     <y>299</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>select_input</sender>
-   <signal>clicked()</signal>
+   <sender>radioCoordDesc</sender>
+   <signal>toggled(bool)</signal>
    <receiver>Form</receiver>
-   <slot>input_clicked()</slot>
+   <slot>method_modified(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>557</x>
-     <y>95</y>
+     <x>1020</x>
+     <y>100</y>
     </hint>
     <hint type="destinationlabel">
-     <x>309</x>
-     <y>199</y>
+     <x>574</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioLSTM</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Form</receiver>
+   <slot>method_modified(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1020</x>
+     <y>130</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>574</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioConjucateGrad</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>Form</receiver>
+   <slot>method_modified(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1020</x>
+     <y>160</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>574</x>
+     <y>299</y>
     </hint>
    </hints>
   </connection>
@@ -1816,5 +3016,6 @@ p, li { white-space: pre-wrap; }
   <slot>output_modified(QString)</slot>
   <slot>weights_modified(QString)</slot>
   <slot>lambda_calc_method_changed(bool)</slot>
+  <slot>method_modified(bool)</slot>
  </slots>
 </ui>
