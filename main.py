@@ -62,7 +62,7 @@ class MainWindow(QDialog, form_class):
         elif self.radio_herm.isChecked():
             self.type = 'hermit'
 
-        self.input_path = 'Data/input_own_v2.txt'
+        self.input_path = 'Data/input.txt'
         self.output_path = 'output5.xlsx'
         self.samples_num = self.sample_spin.value()
         self.lambda_multiblock = self.lambda_check.isChecked()
