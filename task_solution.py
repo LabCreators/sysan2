@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 
-__author__ = 'lex'
 from copy import deepcopy
-
 from scipy import special
 from openpyxl import Workbook
-
-from syst_solution import *
+import numpy as np
+from optimization_methods import *
 from tabulate import tabulate as tb
 
 
@@ -22,9 +20,11 @@ class Solve(object):
         self.weights = d['weights']
         self.poly_type = d['poly_type']
         self.splitted_lambdas = d['lambda_multiblock']
+        self.solving_method = d['method']
         self.eps = 1E-6
         self.norm_error=0.0
         self.error=0.0
+
 
     def define_data(self):
         f = open(self.filename_input, 'r')
@@ -33,17 +33,19 @@ class Solve(object):
         # list of sum degrees [ 3,1,2] -> [3,4,6]
         self.degf = [sum(self.deg[:i + 1]) for i in range(len(self.deg))]
 
-    def _minimize_equation(self, A, b, type='cjg'):
+    def _minimize_equation(self, A, b):
         """
         Finds such vector x that |Ax-b|->min.
         :param A: Matrix A
         :param b: Vector b
         :return: Vector x
         """
-        if type == 'lsq':
+        if self.solving_method == 'LSTM':
             return np.linalg.lstsq(A,b)[0]
-        elif type == 'cjg':
+        elif self.solving_method == 'conjucate':
             return conjugate_gradient_method(A.T*A, A.T*b, self.eps)
+        elif self.solving_method == 'coordDesc':
+            return coordinate_descent(A, b, self.eps)
 
     def norm_data(self):
         '''

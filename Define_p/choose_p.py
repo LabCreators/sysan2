@@ -1,5 +1,3 @@
-__author__ = 'lex'
-
 from task_solution import *
 
 a = Solve({

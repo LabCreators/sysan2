@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-__author__ = 'lex'
-
+#TODO swap methods and remove others
 import sys
-
 from PyQt5.QtCore import pyqtSlot, pyqtSignal
 from PyQt5.QtGui import QTextDocument, QFont
 from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog, QMessageBox
@@ -13,7 +11,7 @@ from output import PolynomialBuilder
 from task_solution import Solve
 
 app = QApplication(sys.argv)
-app.setApplicationName('SA-2')
+app.setApplicationName('System Analysis, Lab 2')
 form_class, base_class = loadUiType('main_window.ui')
 
 
@@ -43,8 +41,8 @@ class MainWindow(QDialog, form_class):
         self.dimensions = [self.x1_dim.value(), self.x2_dim.value(),
                                     self.x3_dim.value(), self.y_dim.value()]
         self.degrees = [self.x1_deg.value(), self.x2_deg.value(), self.x3_deg.value()]
-        
-        self.method = 'null'
+
+        self.method = 'conjucate'
         if self.radioGrad.isChecked():
             self.method = 'grad'
         elif self.radioConjucateGrad.isChecked():
@@ -54,7 +52,7 @@ class MainWindow(QDialog, form_class):
         elif self.radioLSTM.isChecked():
             self.method = 'LSTM'
 
-        self.type = 'null'  
+        self.type = 'chebyshev'
         if self.radio_cheb.isChecked():
             self.type = 'chebyshev'
         elif self.radio_legend.isChecked():
@@ -64,8 +62,8 @@ class MainWindow(QDialog, form_class):
         elif self.radio_herm.isChecked():
             self.type = 'hermit'
 
-        self.input_path = ''
-        self.output_path = ''
+        self.input_path = 'Data/input_own_v2.txt'
+        self.output_path = 'output5.xlsx'
         self.samples_num = self.sample_spin.value()
         self.lambda_multiblock = self.lambda_check.isChecked()
         self.weight_method = self.weights_box.currentText().lower()
@@ -201,7 +199,7 @@ class MainWindow(QDialog, form_class):
         return
 
     def __get_params(self):
-        return dict(poly_type=self.type, degrees=self.degrees, dimensions=self.dimensions,
+        return dict(poly_type=self.type, method=self.method, degrees=self.degrees, dimensions=self.dimensions,
                     samples=self.samples_num, input_file=self.input_path, output_file=self.output_path,
                     weights=self.weight_method, lambda_multiblock=self.lambda_multiblock)
 
