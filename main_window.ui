@@ -6,9 +6,100 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>623</width>
+    <width>1133</width>
     <height>600</height>
    </rect>
+  </property>
+  <property name="palette">
+   <palette>
+    <active>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>170</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>170</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>85</green>
+        <blue>127</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>170</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>170</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>85</green>
+        <blue>127</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>170</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>85</green>
+        <blue>127</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>85</green>
+        <blue>127</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
+   </palette>
   </property>
   <property name="font">
    <font>
@@ -27,6 +118,229 @@
    <string notr="true">background-color: qconicalgradient(cx:0, cy:0, angle:135, stop:0 rgba(255, 255, 0, 69), stop:0.375 rgba(255, 255, 0, 69), stop:0.423533 rgba(251, 255, 0, 145), stop:0.45 rgba(247, 255, 0, 208), stop:0.477581 rgba(255, 244, 71, 130), stop:0.518717 rgba(255, 218, 71, 130), stop:0.55 rgba(255, 255, 0, 255), stop:0.57754 rgba(255, 203, 0, 130), stop:0.625 rgba(255, 255, 0, 69), stop:1 rgba(255, 255, 0, 69));</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
+   <item row="1" column="0" colspan="5">
+    <widget class="QGroupBox" name="groupBox_7">
+     <property name="title">
+      <string>Додаткові параметри</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_9">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(170, 170, 127);</string>
+        </property>
+        <property name="text">
+         <string>Ваги:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="weights_box">
+        <property name="currentText">
+         <string>average</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>average</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>scaled</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="lambda_check">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(170, 170, 127);</string>
+        </property>
+        <property name="text">
+         <string>Визначати lambda з 3 систем рівнянь</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="2" colspan="2">
+    <widget class="QGroupBox" name="groupBox_5">
+     <property name="title">
+      <string>ВИБІР ПОЛІНОМІВ</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="title">
+         <string>Вид полінома:</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QRadioButton" name="radio_cheb">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(170, 170, 127);</string>
+           </property>
+           <property name="text">
+            <string>Чебишева</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radio_legend">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(170, 170, 127);</string>
+           </property>
+           <property name="text">
+            <string>Лежандра</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radio_lagg">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(170, 170, 127);</string>
+           </property>
+           <property name="text">
+            <string>Лагерра</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="radio_herm">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(170, 170, 127);</string>
+           </property>
+           <property name="text">
+            <string>Ерміта</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_4">
+        <property name="title">
+         <string>Степені поліномів:</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_4">
+         <item row="1" column="1">
+          <widget class="QSpinBox" name="x2_deg">
+           <property name="value">
+            <number>7</number>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_6">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(170, 170, 127);</string>
+           </property>
+           <property name="text">
+            <string>X1</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QSpinBox" name="x1_deg">
+           <property name="value">
+            <number>7</number>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_7">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(170, 170, 127);</string>
+           </property>
+           <property name="text">
+            <string>X3</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QSpinBox" name="x3_deg">
+           <property name="value">
+            <number>5</number>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_8">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(170, 170, 127);</string>
+           </property>
+           <property name="text">
+            <string>X2</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="5">
+    <widget class="QGroupBox" name="groupBox_6">
+     <property name="title">
+      <string>ВИКОНАННЯ ПРОГРАМИ</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QPushButton" name="exec_button">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(170, 170, 127);</string>
+        </property>
+        <property name="text">
+         <string>Виконати</string>
+        </property>
+        <property name="default">
+         <bool>true</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="plot_button">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(170, 170, 127);</string>
+        </property>
+        <property name="text">
+         <string>Будувати графік</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="0" column="1">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="sizePolicy">
@@ -34,6 +348,97 @@
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="palette">
+      <palette>
+       <active>
+        <colorrole role="Button">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>55</red>
+           <green>62</green>
+           <blue>200</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Base">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>145</red>
+           <green>162</green>
+           <blue>200</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Window">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>36</red>
+           <green>99</green>
+           <blue>200</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </active>
+       <inactive>
+        <colorrole role="Button">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>55</red>
+           <green>62</green>
+           <blue>200</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Base">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>145</red>
+           <green>162</green>
+           <blue>200</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Window">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>36</red>
+           <green>99</green>
+           <blue>200</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </inactive>
+       <disabled>
+        <colorrole role="Button">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>55</red>
+           <green>62</green>
+           <blue>200</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Base">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>36</red>
+           <green>99</green>
+           <blue>200</blue>
+          </color>
+         </brush>
+        </colorrole>
+        <colorrole role="Window">
+         <brush brushstyle="SolidPattern">
+          <color alpha="255">
+           <red>36</red>
+           <green>99</green>
+           <blue>200</blue>
+          </color>
+         </brush>
+        </colorrole>
+       </disabled>
+      </palette>
      </property>
      <property name="title">
       <string>Розмірність векторів</string>
@@ -122,7 +527,7 @@
      </layout>
     </widget>
    </item>
-   <item row="3" column="0" colspan="4">
+   <item row="3" column="0" colspan="5">
     <widget class="QTextBrowser" name="results_field">
      <property name="autoFillBackground">
       <bool>false</bool>
@@ -140,7 +545,7 @@
       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'.Menio Regular'; font-size:10pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="placeholderText">
@@ -148,284 +553,864 @@ p, li { white-space: pre-wrap; }
      </property>
     </widget>
    </item>
-   <item row="0" column="2" colspan="2">
-    <widget class="QGroupBox" name="groupBox_5">
+   <item row="0" column="4">
+    <widget class="QGroupBox" name="groupBox_8">
      <property name="title">
-      <string>ВИБІР ПОЛІНОМІВ</string>
+      <string>ВИБІР МЕТОДУ ВИРІШЕННЯ</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QGroupBox" name="groupBox_3">
-        <property name="title">
-         <string>Вид полінома:</string>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QRadioButton" name="radio_cheb">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(170, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>Чебишева</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radio_legend">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(170, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>Лежандра</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radio_lagg">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(170, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>Лагерра</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="radio_herm">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(170, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>Ерміта</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QGroupBox" name="groupBox_4">
-        <property name="title">
-         <string>Степені поліномів:</string>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_4">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_6">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(170, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>X1</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QSpinBox" name="x1_deg">
-           <property name="value">
-            <number>7</number>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_8">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(170, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>X2</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QSpinBox" name="x3_deg">
-           <property name="value">
-            <number>5</number>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QSpinBox" name="x2_deg">
-           <property name="value">
-            <number>7</number>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_7">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(170, 170, 127);</string>
-           </property>
-           <property name="text">
-            <string>X3</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QGroupBox" name="groupBox_9">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>221</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Методи вирішення:</string>
+      </property>
+      <widget class="QRadioButton" name="radioButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>141</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Градієнтний метод</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>201</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Метод покординатного спуску</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_3">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>80</y>
+         <width>201</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Метод найменших квадратів</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_4">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>110</y>
+         <width>201</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Метод спряжених градієнтів</string>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </item>
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="palette">
+      <palette>
+       <active>
+        <colorrole role="Button">
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
+         </brush>
+        </colorrole>
+        <colorrole role="Base">
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
+         </brush>
+        </colorrole>
+        <colorrole role="Window">
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
+         </brush>
+        </colorrole>
+       </active>
+       <inactive>
+        <colorrole role="Button">
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
+         </brush>
+        </colorrole>
+        <colorrole role="Base">
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
+         </brush>
+        </colorrole>
+        <colorrole role="Window">
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
+         </brush>
+        </colorrole>
+       </inactive>
+       <disabled>
+        <colorrole role="Button">
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
+         </brush>
+        </colorrole>
+        <colorrole role="Base">
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
+         </brush>
+        </colorrole>
+        <colorrole role="Window">
+         <brush brushstyle="ConicalGradientPattern">
+          <gradient centralx="0.000000000000000" centraly="0.000000000000000" angle="135.000000000000000" type="ConicalGradient" spread="PadSpread" coordinatemode="ObjectBoundingMode">
+           <gradientstop position="0.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.375000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.423533000000000">
+            <color alpha="145">
+             <red>251</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.450000000000000">
+            <color alpha="208">
+             <red>247</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.477581000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>244</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.518717000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>218</green>
+             <blue>71</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.550000000000000">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.577540000000000">
+            <color alpha="130">
+             <red>255</red>
+             <green>203</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="0.625000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+           <gradientstop position="1.000000000000000">
+            <color alpha="69">
+             <red>255</red>
+             <green>255</green>
+             <blue>0</blue>
+            </color>
+           </gradientstop>
+          </gradient>
+         </brush>
+        </colorrole>
+       </disabled>
+      </palette>
+     </property>
      <property name="title">
       <string>ДАНІ</string>
      </property>
-     <layout class="QGridLayout" name="gridLayout_5">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(170, 170, 127);</string>
-        </property>
-        <property name="text">
-         <string>Вибірка:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QSpinBox" name="sample_spin">
-        <property name="maximum">
-         <number>999</number>
-        </property>
-        <property name="value">
-         <number>45</number>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLineEdit" name="line_input">
-        <property name="placeholderText">
-         <string>Вхідні дані</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QToolButton" name="select_input">
-        <property name="text">
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLineEdit" name="line_output">
-        <property name="placeholderText">
-         <string>Вихідні дані</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QToolButton" name="select_output">
-        <property name="text">
-         <string>...</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="4">
-    <widget class="QGroupBox" name="groupBox_6">
-     <property name="title">
-      <string>ВИКОНАННЯ ПРОГРАМИ</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QPushButton" name="exec_button">
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(170, 170, 127);</string>
-        </property>
-        <property name="text">
-         <string>Виконати</string>
-        </property>
-        <property name="default">
-         <bool>true</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="plot_button">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(170, 170, 127);</string>
-        </property>
-        <property name="text">
-         <string>Будувати графік</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="4">
-    <widget class="QGroupBox" name="groupBox_7">
-     <property name="title">
-      <string>Додаткові параметри</string>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="QLabel" name="label_9">
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(170, 170, 127);</string>
-        </property>
-        <property name="text">
-         <string>Ваги:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QComboBox" name="weights_box">
-        <property name="currentText">
-         <string>average</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>average</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>scaled</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item>
-       <widget class="QCheckBox" name="lambda_check">
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(170, 170, 127);</string>
-        </property>
-        <property name="text">
-         <string>Визначати lambda з 3 систем рівнянь</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>12</x>
+        <y>28</y>
+        <width>49</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(170, 170, 127);</string>
+      </property>
+      <property name="text">
+       <string>Вибірка:</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="sample_spin">
+      <property name="geometry">
+       <rect>
+        <x>545</x>
+        <y>88</y>
+        <width>45</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="maximum">
+       <number>999</number>
+      </property>
+      <property name="value">
+       <number>45</number>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_input">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>87</y>
+        <width>137</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Вхідні дані</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="select_input">
+      <property name="geometry">
+       <rect>
+        <x>471</x>
+        <y>86</y>
+        <width>30</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>...</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="line_output">
+      <property name="geometry">
+       <rect>
+        <x>68</x>
+        <y>87</y>
+        <width>137</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Вихідні дані</string>
+      </property>
+     </widget>
+     <widget class="QToolButton" name="select_output">
+      <property name="geometry">
+       <rect>
+        <x>508</x>
+        <y>86</y>
+        <width>30</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>...</string>
+      </property>
+     </widget>
     </widget>
    </item>
   </layout>
@@ -494,38 +1479,6 @@ p, li { white-space: pre-wrap; }
     <hint type="sourcelabel">
      <x>568</x>
      <y>53</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>309</x>
-     <y>199</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>select_input</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>input_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>557</x>
-     <y>95</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>309</x>
-     <y>199</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>select_output</sender>
-   <signal>clicked()</signal>
-   <receiver>Form</receiver>
-   <slot>output_clicked()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>557</x>
-     <y>136</y>
     </hint>
     <hint type="destinationlabel">
      <x>309</x>
@@ -802,6 +1755,38 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>311</x>
      <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>select_output</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>output_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>557</x>
+     <y>136</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>309</x>
+     <y>199</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>select_input</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>input_clicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>557</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>309</x>
+     <y>199</y>
     </hint>
    </hints>
   </connection>
