@@ -1776,20 +1776,7 @@ p, li { white-space: pre-wrap; }
       <property name="title">
        <string>Методи вирішення:</string>
       </property>
-      <widget class="QRadioButton" name="radioGrad">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>20</y>
-         <width>141</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Градієнтний метод</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="radioCoordDesc">
+      <widget class="QRadioButton" name="radioConjucateGrad">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -1813,19 +1800,6 @@ p, li { white-space: pre-wrap; }
        </property>
        <property name="text">
         <string>Метод найменших квадратів</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="radioConjucateGrad">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>110</y>
-         <width>201</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Метод спряжених градієнтів</string>
        </property>
       </widget>
      </widget>
@@ -2927,23 +2901,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>radioGrad</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>Form</receiver>
-   <slot>method_modified(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>990</x>
-     <y>70</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>574</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioCoordDesc</sender>
+   <sender>radioConjucateGrad</sender>
    <signal>toggled(bool)</signal>
    <receiver>Form</receiver>
    <slot>method_modified(bool)</slot>
@@ -2967,22 +2925,6 @@ p, li { white-space: pre-wrap; }
     <hint type="sourcelabel">
      <x>1020</x>
      <y>130</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>574</x>
-     <y>299</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioConjucateGrad</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>Form</receiver>
-   <slot>method_modified(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1020</x>
-     <y>160</y>
     </hint>
     <hint type="destinationlabel">
      <x>574</x>
