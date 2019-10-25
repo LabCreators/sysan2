@@ -178,6 +178,13 @@ class PolynomialBuilder(object):
         return '\n'.join(psi_strings + phi_strings + f_strings + f_strings_transformed + f_strings_transformed_denormed)
 
     def plot_graphs(self):
+        Y_norm = self._solution.Y_
+        F_norm = self._solution.F_
+        for index in range(self._solution.Y.shape[1]):
+            Y_norm[:, index] = (Y_norm[:, index] - self.minY[index]) / (self.maxY[index] - self.minY[index])
+            F_norm[:, index] = (F_norm[:, index] - self.minY[index]) / (self.maxY[index] - self.minY[index])
+
+
         fig, axes = plt.subplots(2, self._solution.Y.shape[1], figsize=(13, 13))
         if self._solution.Y.shape[1] == 1:
             axes[0] = [axes[0]]
@@ -186,17 +193,23 @@ class PolynomialBuilder(object):
             ax = axes[0][index]  # real and estimated graphs
             norm_ax = axes[1][index]  # abs residual graph
             ax.set_xticks(np.arange(0, self._solution.n + 1, 5))
-            ax.plot(np.arange(1, self._solution.n + 1), self._solution.Y_[:, index],
+            #ax.plot(np.arange(1, self._solution.n + 1), self._solution.Y_[:, index],
+            #        '#FF0040', label='$Y_{0}$'.format(index + 1))
+            ax.plot(np.arange(1, self._solution.n + 1), Y_norm[:, index],
                     '#FF0040', label='$Y_{0}$'.format(index + 1))
-            ax.plot(np.arange(1, self._solution.n + 1), self._solution.F_[:, index],
+            #ax.plot(np.arange(1, self._solution.n + 1), self._solution.F_[:, index],
+            #        '#01A9DB', label='$F_{0}$'.format(index + 1))
+            ax.plot(np.arange(1, self._solution.n + 1), F_norm[:, index],
                     '#01A9DB', label='$F_{0}$'.format(index + 1))
             ax.legend(loc='upper right', fontsize=16)
             ax.set_title('Coordinate {0}'.format(index + 1))
             ax.grid()
 
             norm_ax.set_xticks(np.arange(0, self._solution.n + 1, 5))
+            #norm_ax.plot(np.arange(1, self._solution.n + 1),
+            #             abs(self._solution.Y_[:, index] - self._solution.F_[:, index]), '#FACC2E')
             norm_ax.plot(np.arange(1, self._solution.n + 1),
-                         abs(self._solution.Y_[:, index] - self._solution.F_[:, index]), '#FACC2E')
+                         abs(Y_norm[:, index] - F_norm[:, index]), '#FACC2E')
             norm_ax.set_title('Residual {0}'.format(index + 1))
             norm_ax.grid()
 
