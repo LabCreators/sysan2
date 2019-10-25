@@ -193,7 +193,7 @@ class MainWindow(QDialog, form_class):
         return
 
     def __get_params(self):
-        return dict(poly_type=self.type, degrees=self.degrees, dimensions=self.dimensions,
+        return dict(poly_type=self.type, method=self.method, degrees=self.degrees, dimensions=self.dimensions,
                     samples=self.samples_num, input_file=self.input_path, output_file=self.output_path,
                     weights=self.weight_method, lambda_multiblock=self.lambda_multiblock)
 
