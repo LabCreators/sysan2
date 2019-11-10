@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-
-__author__ = 'lex'
-
 import sys
-
 from PyQt5.QtCore import pyqtSlot, pyqtSignal
 from PyQt5.QtGui import QTextDocument, QFont
 from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog, QMessageBox
@@ -18,20 +13,8 @@ form_class, base_class = loadUiType('main_window.ui')
 
 
 class MainWindow(QDialog, form_class):
-    # signals:
     input_changed = pyqtSignal('QString')
     output_changed = pyqtSignal('QString')
-    # x1_dim_changed = pyqtSignal(int)
-    # x2_dim_changed = pyqtSignal(int)
-    # x3_dim_changed = pyqtSignal(int)
-    # x1_deg_changed = pyqtSignal(int)
-    # x2_deg_changed = pyqtSignal(int)
-    # x3_deg_changed = pyqtSignal(int)
-    # type_cheb = pyqtSignal()
-    # type_lege = pyqtSignal()
-    # type_lagg = pyqtSignal()
-    # type_herm = pyqtSignal()
-
 
     def __init__(self, *args):
         super(MainWindow, self).__init__(*args)

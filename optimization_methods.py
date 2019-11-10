@@ -390,4 +390,3 @@ def coordinate_descent(A, b, eps, maxIterations = 1000000):
         if (norm < eps) and i != 0:
             return x
 
-

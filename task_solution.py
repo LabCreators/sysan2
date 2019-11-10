@@ -1,16 +1,14 @@
-# -*- coding: utf-8 -*-
-
-from copy import deepcopy
-from scipy import special
+import pandas as pd
+from basis_generators import BasisGenerator
 from openpyxl import Workbook
-import numpy as np
 from optimization_methods import *
 from tabulate import tabulate as tb
+from functools import reduce
 
 
 class Solve(object):
 
-    def __init__(self,d):
+    def __init__(self, d):
         self.n = d['samples']
         self.deg = d['dimensions']
         self.filename_input = d['input_file']
@@ -22,16 +20,17 @@ class Solve(object):
         self.splitted_lambdas = d['lambda_multiblock']
         self.solving_method = d['method']
         self.eps = 1E-6
-        self.norm_error=0.0
-        self.error=0.0
+        self.norm_error = 0.0
+        self.error = 0.0
 
-
-    def define_data(self):
-        f = open(self.filename_input, 'r')
-        # all data from file_input in float
-        self.datas = np.matrix([list( map( lambda x:float(x),f.readline().split() ) ) for i in range(self.n)])
-        # list of sum degrees [ 3,1,2] -> [3,4,6]
-        self.degf = [sum(self.deg[:i + 1]) for i in range(len(self.deg))]
+    def _prepare_data(self):
+        new_cols = list(itertools.chain(*[['X{}'.format(i + 1)] * self.deg[i] if i != len(self.deg) - 1 else ['Y'] * self.deg[i]
+                               for i in range(len(self.deg))]))
+        new_cols = list(itertools.chain(*np.unique([[el + str(i)
+                                                     for i in range(1, new_cols.count(el) + 1)] for el in new_cols])))
+        dt = pd.read_csv(self.filename_input, sep='\t', header=None).astype(float)
+        dt.columns = new_cols
+        return dt
 
     def _minimize_equation(self, A, b):
         """
@@ -47,304 +46,116 @@ class Solve(object):
         elif self.solving_method == 'coordDesc':
             return coordinate_descent(A, b, self.eps)
 
-    def norm_data(self):
-        '''
-        norm vectors value to value in [0,1]
-        :return: float number in [0,1]
-        '''
-        n,m = self.datas.shape
-        vec = np.ndarray(shape=(n,m),dtype=float)
-        for j in range(m):
-            minv = np.min(self.datas[:,j])
-            maxv = np.max(self.datas[:,j])
-            for i in range(n):
-                vec[i,j] = (self.datas[i,j] - minv)/(maxv - minv)
-        self.data = np.matrix(vec)
+    def _norm_data(self, data):
+        normalized_data = data.copy(deep=True)
+        agg = normalized_data.agg([min, max])
 
-    def define_norm_vectors(self):
+        for col in normalized_data.columns:
+            min_val = agg.loc['min', col]
+            max_val = agg.loc['max', col]
+            normalized_data[col] = normalized_data[col].apply(lambda x: (x - min_val) / (max_val - min_val))
+
+        return normalized_data
+
+    def _create_train_dataset(self, data):
         '''
         build matrix X and Y
         :return:
         '''
-        X1 = self.data[:, :self.degf[0]]
-        X2 = self.data[:, self.degf[0]:self.degf[1]]
-        X3 = self.data[:, self.degf[1]:self.degf[2]]
-        #matrix of vectors i.e.X = [[X11,X12],[X21],...]
-        self.X = [X1, X2, X3]
-        #number columns in matrix X
-        self.mX = self.degf[2]
-        # matrix, that consists of i.e. Y1,Y2
-        self.Y = self.data[:, self.degf[2]:self.degf[3]]
-        self.Y_ = self.datas[:, self.degf[2]:self.degf[3]]
-        self.X_ = [self.datas[:, :self.degf[0]], self.datas[:,self.degf[0]:self.degf[1]],
-                   self.datas[:, self.degf[1]:self.degf[2]]]
+        X = data.loc[:, [el for el in data.columns if el.find('X') != -1]]
+        Y = data.loc[:, [el for el in data.columns if el.find('Y') != -1]]
 
-    def built_B(self):
-        def B_average():
-            '''
-            Vector B as avarage of max and min in Y. B[i] =max Y[i,:]
-            :return:
-            '''
-            b = np.tile((self.Y.max(axis=1) + self.Y.min(axis=1))/2,(1,self.deg[3]))
-            return b
+        return X, Y
 
-        def B_scaled():
-            '''
-            Vector B  = Y
-            :return:
-            '''
-            return deepcopy(self.Y)
-
+    def _get_B(self, Y):
         if self.weights == 'average':
-            self.B = B_average()
-        elif self.weights =='scaled':
-            self.B = B_scaled()
+            Y = (Y.max(axis=1) + Y.min(axis=1)) / 2 #arguable, may be need not to normalize Y before this operation
+            return np.tile(Y.values.reshape(self.n, 1), (1, self.deg[-1]))
+        elif self.weights == 'width_interval':
+            np.tile((Y.max(axis=1) - Y.min(axis=1)).values.reshape(self.n, 1), (1, self.deg[-1])) #arguable (same as above)
         else:
-            exit('B not definded')
+            return Y
 
-    def poly_func(self):
-        '''
-        Define function to polynoms
-        :return: function
-        '''
-        if self.poly_type =='chebyshev':
-            self.poly_f = special.eval_sh_chebyt
-        elif self.poly_type == 'legendre':
-            self.poly_f = special.eval_sh_legendre
-        elif self.poly_type == 'laguerre':
-            self.poly_f = special.eval_laguerre
-        elif self.poly_type == 'hermit':
-            self.poly_f = special.eval_hermite
+    def _evaluate_polynom(self, coefs, x):
+        return sum([np.array(coef) * pow(x, i) for i, coef in enumerate(coefs)])
 
-    def built_A(self):
-        '''
-        built matrix A on shifted polynomys Chebysheva
-        :param self.p:mas of deg for vector X1,X2,X3 i.e.
-        :param self.X: it is matrix that has vectors X1 - X3 for example
-        :return: matrix A as ndarray
-        '''
+    def _get_A(self, data, polynoms_degrees):
+        A = pd.DataFrame()
+        for i, degree in enumerate(polynoms_degrees):
+            gen = BasisGenerator(degree, self.poly_type)
+            coefs = list(map(lambda x: x, list(gen.generate())[-1]))
+            A = pd.concat([A, data.apply(lambda x: self._evaluate_polynom(coefs, x))], axis=1)
+        return A
 
-        def mA():
-            '''
-            :param X: [X1, X2, X3]
-            :param p: [p1,p2,p3]
-            :return: m = m1*p1+m2*p2+...
-            '''
-            m = 0
-            for i in range(len(self.X)):
-                m+= self.X[i].shape[1]*(self.p[i]+1)
-            return m
+    def _get_lambdas(self, A, Y):
+        lambdas = pd.DataFrame(columns=['lambda_{}'.format(i) for i in range(1, self.deg[-1])])
 
-        def coordinate(v,deg):
-            '''
-            :param v: vector
-            :param deg: chebyshev degree polynom
-            :return:column with chebyshev value of coordiate vector
-            '''
-            c = np.ndarray(shape=(self.n,1), dtype = float)
-            for i in range(self.n):
-                c[i,0] = self.poly_f(deg, v[i])
-            return c
+        for i, j in itertools.product(range(self.deg[-1]), range(len(self.deg) - 1)):
+            use_cols = [el for el in A.columns if el.find('X{}'.format(j + 1)) != -1]
+            train_data = A.loc[:, use_cols]
+            a = train_data.T * Y.loc[:, Y.columns[i]]
+            lambdas.loc[i, lambdas.columns[j]] = [self._minimize_equation(a.T.values, Y.loc[:, Y.columns[i]])]
+        return lambdas
 
-        def vector(vec, p):
-            '''
-            :param vec: it is X that consist of X11, X12, ... vectors
-            :param p: max degree for chebyshev polynom
-            :return: part of matrix A for vector X1
-            '''
-            n, m = vec.shape
-            a = np.ndarray(shape=(n,0),dtype = float)
-            for j in range(m):
-                for i in range(p):
-                    ch = coordinate(vec[:,j],i)
-                    a = np.append(a,ch,1)
-            return a
+    def _get_psi(self, A, lambdas):
+        psi = [[A.loc[:, [el for el in A.columns if el.find('X{}'.format(i + 1)) != -1]
+                ] * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(3)] for j in range(4)]
+        return psi
 
-        #k = mA()
-        A = np.ndarray(shape = (self.n,0),dtype =float)
-        for i in range(len(self.X)):
-            vec = vector(self.X[i],self.p[i])
-            A = np.append(A, vec,1)
-        self.A = np.matrix(A)
+    def _get_A1(self, psi, y):
+        return [[np.linalg.lstsq(psi[i][j][:], y.loc[:, y.columns[i]])[0] for j in range(len(self.deg)-1)]
+                for i in range(self.deg[-1])]
 
-    def lamb(self):
-        lamb = np.ndarray(shape = (self.A.shape[1],0), dtype = float)
-        for i in range(self.deg[3]):
-            if self.splitted_lambdas:
-                boundary_1 = self.p[0] * self.deg[0]
-                boundary_2 = self.p[1] * self.deg[1] + boundary_1
-                lamb1 = self._minimize_equation(self.A[:, :boundary_1], self.B[:, i])
-                lamb2 = self._minimize_equation(self.A[:, boundary_1:boundary_2], self.B[:, i])
-                lamb3 = self._minimize_equation(self.A[:, boundary_2:], self.B[:, i])
-                lamb = np.append(lamb, np.concatenate((lamb1, lamb2, lamb3)), axis=1)
-            else:
-                lamb = np.append(lamb, self._minimize_equation(self.A, self.B[:, i]), axis=1)
-        self.Lamb = np.matrix(lamb) #Lamb in full events
+    def _get_Fi(self, psi, a1):
+        fi = np.array([[psi[i][j] * a1[i][j] for j in range(len(self.deg)-1)] for i in range(self.deg[-1])])
+        fi = [reduce(lambda x, y: pd.concat([x, y], axis=1), fi[i]) for i in range(self.deg[-1])]
+        return fi
 
-    def psi(self):
-        def built_psi(lamb):
-            '''
-            return matrix xi1 for b1 as matrix
-            :param A:
-            :param lamb:
-            :param p:
-            :return: matrix psi, for each Y
-            '''
-            psi = np.ndarray(shape=(self.n, self.mX), dtype = float)
-            q = 0 #iterator in lamb and A
-            l = 0 #iterator in columns psi
-            for k in range(len(self.X)): # choose X1 or X2 or X3
-                for s in range(self.X[k].shape[1]):# choose X11 or X12 or X13
-                    for i in range(self.X[k].shape[0]):
-                            psi[i,l] = self.A[i,q:q+self.p[k]]*lamb[q:q+self.p[k], 0]
-                    q+=self.p[k]
-                    l+=1
-            return np.matrix(psi)
+    def _get_coefs(self, fi, y):
+        return [self._minimize_equation(np.dot(fi[i].T, fi[i]),
+                                np.dot(fi[i].T, y.iloc[:, i])) for i in range(self.deg[-1])]
 
-        self.Psi = [] #as list because psi[i] is matrix(not vector)
-        for i in range(self.deg[3]):
-            self.Psi.append(built_psi(self.Lamb[:,i]))
+    #TODO Fitness function for normalize version
+    def _get_fitness_function(self, fi, y, coefs):
+        fitness = [np.dot(fi[i], coefs[i]) for i in range(self.deg[-1])]
+        norm_error = [(y.iloc[:, i] - fitness[i]) for i in range(self.deg[-1])]
+        return fitness, norm_error
 
-    def built_a(self):
-        self.a = np.ndarray(shape=(self.mX,0), dtype=float)
-        for i in range(self.deg[3]):
-            a1 = self._minimize_equation(self.Psi[i][:, :self.degf[0]], self.Y[:, i])
-            a2 = self._minimize_equation(self.Psi[i][:, self.degf[0]:self.degf[1]], self.Y[:, i])
-            a3 = self._minimize_equation(self.Psi[i][:, self.degf[1]:], self.Y[:, i])
-            # temp = self._minimize_equation(self.Psi[i], self.Y[:, i])
-            # self.a = np.append(self.a, temp, axis=1)
-            self.a = np.append(self.a, np.vstack((a1, a2, a3)),axis = 1)
+    #TODO try to put into get_B not normalized Y
+    def _save_data(self, data, norm_data, A, lambdas, psi, A1, y_new, y_new_normalized, c,
+                  fit_res, errors, nor_errors):
+        with pd.ExcelWriter(self.filename_output) as writer:
+            data.to_excel(writer, sheet_name='Вхідні дані')
+            norm_data.to_excel(writer, sheet_name='Нормалізовані вхідні дані')
+            A.to_excel(writer, sheet_name='Матриця А')
+            lambdas.to_excel(writer, sheet_name='Значення лямбд')
+            for i in range(psi.shape[0]):
+                temp = reduce(lambda x, y: pd.concat([x, y], axis=1), psi[i])
+                temp.to_excel(writer, sheet_name='PSI{}'.format(i + 1))
+            A1.to_excel(writer, sheet_name='матриця А1')
+            y_new.to_excel(writer, sheet_name='Перебудовані Y')
+            y_new_normalized.to_excel(writer, sheet_name='Перебудовані Y нормалізовані')
+            c.to_excel(writer, sheet_name='Коефіцієнти c')
+            fit_res.to_excel(writer, sheet_name='Побудований прогноз')
+            errors.to_excel(writer, sheet_name='Похибки')
+            nor_errors.to_excel(writer, sheet_name='Норми похибок')
 
-    def built_F1i(self, psi, a):
-            '''
-            not use; it used in next function
-            :param psi: matrix psi (only one
-            :param a: vector with shape = (6,1)
-            :param degf:  = [3,4,6]//fibonachi of deg
-            :return: matrix of (three) components with F1 F2 and F3
-            '''
-            m = len(self.X) # m  = 3
-            F1i = np.ndarray(shape = (self.n,m),dtype = float)
-            k = 0 #point of begining columnt to multipy
-            for j in range(m): # 0 - 2
-                for i in range(self.n): # 0 - 49
-                    F1i[i,j] = psi[i,k:self.degf[j]]*a[k:self.degf[j],0]
-                k = self.degf[j]
-            return np.matrix(F1i)
+    def main(self):
+        prepared_data = self._prepare_data()
+        normalized_data = self._norm_data(prepared_data)
+        train_data, target = self._create_train_dataset(normalized_data)
+        A = self._get_A(train_data, self.deg)
+        b = self._get_B(target)
+        lambdas = self._get_lambdas(A, b)
+        psi = self._get_psi(A, lambdas)
+        A1 = self._get_A1(psi, b)
+        Fi = self._get_Fi(psi, A1)
+        coefs = self._get_coefs(Fi, b)
+        fitnes_result, error = self._get_fitness_function(Fi, b, coefs)
 
-    def built_Fi(self):
-        self.Fi = []
-        for i in range(self.deg[3]):
-            self.Fi.append(self.built_F1i(self.Psi[i],self.a[:,i]))
-
-    def built_c(self):
-        self.c = np.ndarray(shape = (len(self.X),0),dtype = float)
-        for i in range(self.deg[3]):
-            self.c = np.append(self.c, conjugate_gradient_method(self.Fi[i].T*self.Fi[i], self.Fi[i].T*self.Y[:,i],self.eps),\
-                          axis = 1)
-
-    def built_F(self):
-        F = np.ndarray(self.Y.shape, dtype = float)
-        for j in range(F.shape[1]):#2
-            for i in range(F.shape[0]): #50
-                F[i,j] = self.Fi[j][i,:]*self.c[:,j]
-        self.F = np.matrix(F)
-        self.norm_error = []
-        for i in range(self.Y.shape[1]):
-            self.norm_error.append(np.linalg.norm(self.Y[:,i] - self.F[:,i],np.inf))
-
-    def built_F_(self):
-        minY = self.Y_.min(axis=0)
-        maxY = self.Y_.max(axis=0)
-        self.F_ = np.multiply(self.F,maxY - minY) + minY
-        self.error = []
-        for i in range(self.Y_.shape[1]):
-            self.error.append(np.linalg.norm(self.Y_[:,i] - self.F_[:,i],np.inf))
-
-    def save_to_file(self):
-        wb = Workbook()
-        #get active worksheet
-        ws = wb.active
-
-        l = [None]
-
-        ws.append(['Вхідні дані: X'])
-        for i in range(self.n):
-             ws.append(l+self.datas[i,:self.degf[3]].tolist()[0])
-        ws.append([])
-
-        ws.append(['Вхідні дані: Y'])
-        for i in range(self.n):
-             ws.append(l+self.datas[i,self.degf[2]:self.degf[3]].tolist()[0])
-        ws.append([])
-
-        ws.append(['X нормалізовані:'])
-        for i in range(self.n):
-             ws.append(l+self.data[i,:self.degf[2]].tolist()[0])
-        ws.append([])
-
-        ws.append(['Y нормалізовані:'])
-        for i in range(self.n):
-             ws.append(l+self.data[i,self.degf[2]:self.degf[3]].tolist()[0])
-        ws.append([])
-
-
-        ws.append(['Матриця B:'])
-        for i in range(self.n):
-             ws.append(l+self.B[i].tolist()[0])
-        ws.append([])
-
-        ws.append(['Матриця A:'])
-        for i in range(self.A.shape[0]):
-             ws.append(l+self.A[i].tolist()[0])
-        ws.append([])
-
-        ws.append(['Матриця Lambda:'])
-        for i in range(self.Lamb.shape[0]):
-             ws.append(l+self.Lamb[i].tolist()[0])
-        ws.append([])
-
-        for j in range(len(self.Psi)):
-             s = 'Матриця Psi%i:' %(j+1)
-             ws.append([s])
-             for i in range(self.n):
-                  ws.append(l+self.Psi[j][i].tolist()[0])
-             ws.append([])
-
-        ws.append(['Матриця a:'])
-        for i in range(self.mX):
-             ws.append(l+self.a[i].tolist()[0])
-        ws.append([])
-
-        for j in range(len(self.Fi)):
-             s = 'Матриця F%i:' %(j+1)
-             ws.append([s])
-             for i in range(self.Fi[j].shape[0]):
-                  ws.append(l+self.Fi[j][i].tolist()[0])
-             ws.append([])
-
-        ws.append(['Матриця c:'])
-        for i in range(len(self.X)):
-             ws.append(l+self.c[i].tolist()[0])
-        ws.append([])
-
-        ws.append(['Y перебудовані нормалізовані :'])
-        for i in range(self.n):
-             ws.append(l+self.F[i].tolist()[0])
-        ws.append([])
-
-        ws.append(['Y перебудовані :'])
-        for i in range(self.n):
-             ws.append(l+self.F_[i].tolist()[0])
-        ws.append([])
-
-        ws.append(['Нормалізована похибка (Y - F)'])
-        ws.append(l + self.norm_error)
-
-        ws.append(['Похибка (Y_ - F_))'])
-        ws.append(l+self.error)
-
-        wb.save(self.filename_output)
+        self._save_data(prepared_data, normalized_data, A, lambdas, np.array(psi), pd.DataFrame(A1), b,
+                  b, pd.DataFrame(coefs), pd.DataFrame(fitnes_result).T, pd.DataFrame(error).T,
+                  pd.DataFrame(pd.DataFrame(error).T.apply(lambda x: np.linalg.norm(x))).T)
 
     def show(self):
         text = []

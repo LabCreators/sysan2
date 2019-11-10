@@ -1,6 +1,3 @@
-
-__author__ = 'lex'
-
 class _Polynom(object):
     def __init__(self, ar, symbol = 'x',eps = 1e-15):
         self.ar = ar

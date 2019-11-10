@@ -1,10 +1,8 @@
-# -*- coding: utf-8 -*-
-
 import numpy as np
 import matplotlib.pyplot as plt
 from os import name as os_name
 from task_solution import Solve
-import basis_gen as b_gen
+import basis_generators as b_gen
 from depict_poly import _Polynom
 
 
