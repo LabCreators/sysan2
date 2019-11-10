@@ -35,13 +35,13 @@ class MainWindow(QDialog, form_class):
 
         self.type = 'null'  
         if self.radio_cheb.isChecked():
-            self.type = 'chebyshev'
+            self.type = 'smoothed_chebyshev'
         elif self.radio_legend.isChecked():
-            self.type = 'legendre'
+            self.type = 'smoothed_legandr'
         elif self.radio_lagg.isChecked():
             self.type = 'laguerre'
         elif self.radio_herm.isChecked():
-            self.type = 'hermit'
+            self.type = 'hermite'
 
         self.input_path = 'Data/input.txt'
         self.output_path = 'output.xlsx'
@@ -124,13 +124,13 @@ class MainWindow(QDialog, form_class):
         if (isdown):
             sender = self.sender().objectName()
             if sender == 'radio_cheb':
-                self.type = 'chebyshev'
+                self.type = 'smoothed_chebyshev'
             elif sender == 'radio_legend':
-                self.type = 'legendre'
+                self.type = 'smoothed_legandr'
             elif sender == 'radio_lagg':
                 self.type = 'laguerre'
             elif sender == 'radio_herm':
-                self.type = 'hermit'
+                self.type = 'hermite'
         return
 
     @pyqtSlot(bool)
@@ -157,9 +157,9 @@ class MainWindow(QDialog, form_class):
         self.exec_button.setEnabled(False)
         try:
             solver = Solve(self.__get_params())
-            solver.prepare()
+            solved_data = solver.main()
             self.solution = PolynomialBuilder(solver)
-            self.results_field.setText(solver.show()+'\n\n'+self.solution.get_results())
+            self.results_field.setText(solver.print_data(*solved_data)+'\n\n'+self.solution.get_results())
         except Exception as e:
             QMessageBox.warning(self,'Error!','Error happened during execution: ' + str(e))
         self.exec_button.setEnabled(True)

@@ -1,8 +1,6 @@
 import pandas as pd
 from basis_generators import BasisGenerator
-from openpyxl import Workbook
 from optimization_methods import *
-from tabulate import tabulate as tb
 from functools import reduce
 
 
@@ -99,11 +97,11 @@ class Solve(object):
 
     def _get_psi(self, A, lambdas):
         psi = [[A.loc[:, [el for el in A.columns if el.find('X{}'.format(i + 1)) != -1]
-                ] * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(3)] for j in range(4)]
+                ] * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(len(self.deg)-1)] for j in range(self.deg[-1])]
         return psi
 
     def _get_A1(self, psi, y):
-        return [[np.linalg.lstsq(psi[i][j][:], y.loc[:, y.columns[i]])[0] for j in range(len(self.deg)-1)]
+        return [[self._minimize_equation(psi[i][j][:], y.loc[:, y.columns[i]]) for j in range(len(self.deg)-1)]
                 for i in range(self.deg[-1])]
 
     def _get_Fi(self, psi, a1):
@@ -140,7 +138,47 @@ class Solve(object):
             errors.to_excel(writer, sheet_name='Похибки')
             nor_errors.to_excel(writer, sheet_name='Норми похибок')
 
-    def main(self):
+    def print_data(self, data, norm_data, A, lambdas, psi, A1, y_new, y_new_normalized, c,
+                   fit_res, errors, nor_errors):
+        print('Вхідні дані')
+        print(data.to_string())
+        print('-------------------------')
+        print('Нормалізовані вхідні дані')
+        print(norm_data.to_string())
+        print('-------------------------')
+        print('Матриця А')
+        print(A.to_string())
+        print('-------------------------')
+        print('Значення лямбд')
+        print(lambdas.to_string())
+        print('-------------------------')
+        for i in range(psi.shape[0]):
+            temp = reduce(lambda x, y: pd.concat([x, y], axis=1), psi[i])
+            print('PSI{}'.format(i + 1))
+            print(temp.to_string())
+            print('---------------------')
+        print('матриця А1')
+        print(A1.to_string())
+        print('-------------------------')
+        print('Перебудовані Y')
+        print(y_new.to_string())
+        print('-------------------------')
+        print('Перебудовані Y нормалізовані')
+        print(y_new_normalized.to_string())
+        print('-------------------------')
+        print('Коефіцієнти c')
+        print(c.to_string())
+        print('-------------------------')
+        print('Побудований прогноз')
+        print(fit_res.to_string())
+        print('-------------------------')
+        print('Похибки')
+        print(errors.to_string())
+        print('-------------------------')
+        print('Норми похибок')
+        print(nor_errors.to_string())
+
+    def main(self, print_=False):
         prepared_data = self._prepare_data()
         normalized_data = self._norm_data(prepared_data)
         train_data, target = self._create_train_dataset(normalized_data)
@@ -157,72 +195,11 @@ class Solve(object):
                   b, pd.DataFrame(coefs), pd.DataFrame(fitnes_result).T, pd.DataFrame(error).T,
                   pd.DataFrame(pd.DataFrame(error).T.apply(lambda x: np.linalg.norm(x))).T)
 
-    def show(self):
-        text = []
+        if print_:
+            self.print_data(prepared_data, normalized_data, A, lambdas, np.array(psi), pd.DataFrame(A1), b,
+                        b, pd.DataFrame(coefs), pd.DataFrame(fitnes_result).T, pd.DataFrame(error).T,
+                        pd.DataFrame(pd.DataFrame(error).T.apply(lambda x: np.linalg.norm(x))).T)
 
-        text.append('Input data: X')
-        text.append(tb(np.array(self.datas[:, :self.degf[2]])))
-
-        text.append('\nInput data: Y')
-        text.append(tb(np.array(self.datas[:,self.degf[2]:self.degf[3]])))
-
-        text.append('\nX normalised:')
-        text.append(tb(np.array(self.data[:,:self.degf[2]])))
-
-        text.append('\nY normalised:')
-        text.append(tb(np.array(self.data[:,self.degf[2]:self.degf[3]])))
-
-        text.append('\nmatrix B:')
-        text.append(tb(np.array(self.B)))
-
-        text.append('\nmatrix A:')
-        text.append(tb(np.array(self.A)))
-
-        text.append('\nmatrix Lambda:')
-        text.append(tb(np.array(self.Lamb)))
-
-        for j in range(len(self.Psi)):
-             s = '\nmatrix Psi%i:' %(j+1)
-             text.append(s)
-             text.append(tb(np.array(self.Psi[j])))
-
-        text.append('\nmatrix a:')
-        text.append(tb(self.a.tolist()))
-
-        for j in range(len(self.Fi)):
-             s = '\nmatrix F%i:' %(j+1)
-             text.append(s)
-             text.append(tb(np.array(self.Fi[j])))
-
-        text.append('\nmatrix c:')
-        text.append(tb(np.array(self.c)))
-
-        text.append('\nY rebuilt normalized :')
-        text.append(tb(np.array(self.F)))
-
-        text.append('\nY rebuilt :')
-        text.append(tb(self.F_.tolist()))
-
-        text.append('\nError normalised (Y - F)')
-        text.append(tb([self.norm_error]))
-
-        text.append('\nError (Y_ - F_))')
-        text.append(tb([self.error]))
-
-        return '\n'.join(text)
-
-    def prepare(self):
-        self.define_data()
-        self.norm_data()
-        self.define_norm_vectors()
-        self.built_B()
-        self.poly_func()
-        self.built_A()
-        self.lamb()
-        self.psi()
-        self.built_a()
-        self.built_Fi()
-        self.built_c()
-        self.built_F()
-        self.built_F_()
-        self.save_to_file()
+        return [prepared_data, normalized_data, A, lambdas, np.array(psi), pd.DataFrame(A1), b,
+                        b, pd.DataFrame(coefs), pd.DataFrame(fitnes_result).T, pd.DataFrame(error).T,
+                        pd.DataFrame(pd.DataFrame(error).T.apply(lambda x: np.linalg.norm(x))).T]

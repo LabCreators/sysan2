@@ -364,8 +364,7 @@ def conjugate_gradient_method(A, b, eps):
     return np.matrix(xi1)
 
 
-def coordinate_descent(A, b, eps, maxIterations = 1000000):
-    b = np.array(list(itertools.chain(*b.tolist())))
+def coordinate_descent(A, b, eps, maxIterations = 100):
     A = np.array(A)
     N = A.shape[0]
     x = [0 for i in range(N)]
