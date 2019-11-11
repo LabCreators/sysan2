@@ -11,7 +11,7 @@ class BasicBasisGenerator:
         elif degree == 1:
             return pm([-1, 2])
         else:
-            pm([-2, 4]) * self.basis_smoothed_chebyshev(degree - 1) - self.basis_smoothed_chebyshev(degree - 2)
+            return pm([-2, 4]) * self.basis_smoothed_chebyshev(degree - 1) - self.basis_smoothed_chebyshev(degree - 2)
 
     def basis_smoothed_legendre(self, degree):
         if not degree:
