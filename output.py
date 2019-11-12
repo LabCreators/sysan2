@@ -172,7 +172,7 @@ class PolynomialBuilder(object):
             '(F{0}) transformed:\n{result}\n'.format(i + 1, result=self._print_F_i_transformed(i))
             for i in range(self.y.shape[1])]
         f_strings_transformed_denormed = ['(F{0}) transformed ' \
-                                          'denormed:\n{result}\n'.format(i + 1, result=self._print_F_i_transformed_denormed(i)
+                                          'denormed:\n{result}\n'.format(i + 1, result=self._print_F_i_transformed_denormed(i))
                                           for i in range(self.y.shape[1])]
         return '\n'.join(psi_strings + phi_strings + f_strings + f_strings_transformed + f_strings_transformed_denormed)
 
