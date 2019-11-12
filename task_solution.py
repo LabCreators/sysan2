@@ -277,4 +277,4 @@ class Solve(object):
                 pd.DataFrame(fitnes_result_normalized).T, pd.DataFrame(error).T,
                 pd.DataFrame(error_normalized).T,
                 pd.DataFrame(pd.DataFrame(error).T.apply(lambda x: np.linalg.norm(x))).T,
-                pd.DataFrame(pd.DataFrame(error_normalized).T.apply(lambda x: np.linalg.norm(x))).T]
+                pd.DataFrame(pd.DataFrame(error_normalized).T.apply(lambda x: np.linalg.norm(x))).T, self.deg, self.p]
