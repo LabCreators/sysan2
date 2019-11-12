@@ -9,7 +9,7 @@ import itertools
 
 class PolynomialBuilder(object):
     def __init__(self, solver, solution):
-        assert isinstance(solution, Solve)
+        assert isinstance(solver, Solve)
         self._solution = solution
         self._solver = solver
         max_degree = max(solver.p)
@@ -27,7 +27,7 @@ class PolynomialBuilder(object):
             self.basis = BasisGenerator(max_degree,'hermite').basis_hermite(max_degree)
         self.a = self._solution[9]
         self.c = self._solution[13]
-        self.lamd = self._solution[5]
+        self.lamb = self._solution[5]
         self.dt = self._solution[0]
         self.dt_norm = self._solution[1]
         self.y = self._solution[-12]
@@ -45,7 +45,7 @@ class PolynomialBuilder(object):
         self.maxX = [self.dt[el].max(axis=0).max() for el in use_cols]
         self.minY = self.y.min(axis=0).min()
         self.maxY = self.y.max(axis=0).max()
-        self.psi = [[[self.lamb.loc[i, 'lambda_{}'.format(j+1)][0].tolist()] for j in range(self.p)] for i in range(self.deg)]
+        self.psi = [[[self.lamb.loc[i, 'lambda_{}'.format(j+1)][0].tolist()] for j in range(len(self.p))] for i in range(len(self.deg))]
 
     def _form_lamb_lists(self):
 
@@ -118,14 +118,14 @@ class PolynomialBuilder(object):
             for k in range(len(self.psi[i][j])):
                 shift = sum(self.p[:j]) + k
                 raw_coeffs = self._transform_to_standard(self.c.loc[i, j] * self.a.loc[i, j][shift] * np.array(self.psi[i][j][k]))
-                diff = self.maxX[j][k] - self.minX[j][k]
-                mult_poly = np.poly1d(np.array([1 / diff, - self.minX[j][k]]) / diff)
+                diff = self.maxX[j] - self.minX[j]
+                mult_poly = np.poly1d(np.array([1 / diff, -self.minX[j]]) / diff)
                 add_poly = np.poly1d([1])
                 current_poly = np.poly1d([0])
                 for n in range(len(raw_coeffs)):
                     current_poly += add_poly * raw_coeffs[n]
                     add_poly *= mult_poly
-                current_poly = current_poly * (self.maxY[i] - self.minY[i]) + self.minY[i]
+                current_poly = current_poly * (self.maxY - self.minY) + self.minY
                 constant += current_poly[0]
                 current_poly[0] = 0
                 current_poly = np.poly1d(current_poly.coeffs, variable='(x{0}{1})'.format(j + 1, k + 1))
@@ -177,27 +177,27 @@ class PolynomialBuilder(object):
         return '\n'.join(psi_strings + phi_strings + f_strings + f_strings_transformed + f_strings_transformed_denormed)
 
     def plot_graphs(self):
-        fig, axes = plt.subplots(4, self.y.shape[1], figsize=(13, 13))
+        fig, axes = plt.subplots(4, self.y.shape[1], figsize=(20, 20))
 
         for i in range(len(self.deg)):
-            axes[0][i].plot(self.dt['Y{}'.format(i + 1)]);
-            axes[0][i].plot(self.ft.loc[:, i]);
-            axes[0][i].legend(['True', 'Predict']);
+            axes[0][i].plot(self.dt['Y{}'.format(i + 1)])
+            axes[0][i].plot(self.ft.loc[:, i])
+            axes[0][i].legend(['True', 'Predict'])
             axes[0][i].set_title('Not normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
 
         for i in range(len(self.deg)):
-            axes[1][i].plot(self.errors.apply(abs).loc[:, 'Y{}'.format(i + 1)])
+            axes[1][i].plot(self.errors.apply(abs).loc[:, i])
             axes[1][i].set_title('Not normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
 
 
         for i in range(len(self.deg)):
-            axes[2][i].plot(self.dt_norm['Y{}'.format(i + 1)]);
-            axes[2][i].plot(self.ft_norm.loc[:, i]);
-            axes[2][i].legend(['True', 'Predict']);
+            axes[2][i].plot(self.dt_norm['Y{}'.format(i + 1)])
+            axes[2][i].plot(self.ft_norm.loc[:, i])
+            axes[2][i].legend(['True', 'Predict'])
             axes[2][i].set_title('Normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
 
         for i in range(len(self.deg)):
-            axes[3][i].plot(self.errors_norm.apply(abs).loc[:, 'Y{}'.format(i + 1)])
+            axes[3][i].plot(self.errors_norm.apply(abs).loc[:, i])
             axes[3][i].set_title('Normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
 
 

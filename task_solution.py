@@ -90,7 +90,8 @@ class Solve(object):
 
     def _get_lambdas(self, A, Y):
         lambdas = pd.DataFrame(columns=['lambda_{}'.format(i) for i in range(1, self.deg[-1])])
-
+        A = pd.DataFrame(A)
+        Y = pd.DataFrame(Y)
         for i, j in itertools.product(range(self.deg[-1]), range(len(self.deg) - 1)):
             if self.splitted_lambdas:
                 use_cols = [el for el in A.columns if el.find('X{}'.format(j + 1)) != -1]
@@ -109,6 +110,7 @@ class Solve(object):
         return psi
 
     def _get_A1(self, psi, y):
+        y = pd.DataFrame(y)
         return [[self._minimize_equation(psi[i][j][:], y.loc[:, y.columns[i]]) for j in range(len(self.deg) - 1)]
                 for i in range(self.deg[-1])]
 
@@ -118,11 +120,13 @@ class Solve(object):
         return fi
 
     def _get_coefs(self, fi, y):
+        y = pd.DataFrame(y)
         return [self._minimize_equation(np.dot(fi[i].T, fi[i]),
                                         np.dot(fi[i].T, y.iloc[:, i])) for i in range(self.deg[-1])]
 
     # TODO Fitness function for normalize version
     def _get_fitness_function(self, fi, y, coefs):
+        y = pd.DataFrame(y)
         fitness = [np.dot(fi[i], coefs[i]) for i in range(self.deg[-1])]
         norm_error = [(y.iloc[:, i] - fitness[i]) for i in range(self.deg[-1])]
         return fitness, norm_error
@@ -136,7 +140,7 @@ class Solve(object):
             lambdas.to_excel(writer, sheet_name='Значення лямбд')
             for i in range(psi.shape[0]):
                 temp = reduce(lambda x, y: pd.concat([x, y], axis=1), psi[i])
-                temp.to_excel(writer, sheet_name='PSI{}'.format(i + 1))
+                pd.DataFrame(temp).to_excel(writer, sheet_name='PSI{}'.format(i + 1))
             A1.to_excel(writer, sheet_name='матриця А1')
             y_new.to_excel(writer, sheet_name='Перебудовані Y')
             c.to_excel(writer, sheet_name='Коефіцієнти c')
@@ -159,73 +163,137 @@ class Solve(object):
 
     def print_data(self, data, norm_data, A, norm_A, lambdas, lambdas_norm, psi, psi_norm,
                    A1, A1_norm, y_new, y_new_normalized, c, c_norm,
-                   fit_res, fit_res_norm, errors, errors_norm, nor_errors, nor_errors_norm):
+                   fit_res, fit_res_norm, errors, errors_norm, nor_errors, nor_errors_norm, *args):
+        text = []
+        text.append('Вхідні дані')
         print('Вхідні дані')
         print(data.to_string())
+        text.append(data.to_string())
         print('-------------------------')
+        text.append('-------------------------')
         print('Матриця А')
+        text.append('Матриця А')
         print(A.to_string())
+        text.append(A.to_string())
         print('-------------------------')
+        text.append('-------------------------')
         print('Значення лямбд')
+        text.append('Значення лямбд')
         print(lambdas.to_string())
+        text.append(lambdas.to_string())
         print('-------------------------')
+        text.append('-------------------------')
         for i in range(psi.shape[0]):
             temp = reduce(lambda x, y: pd.concat([x, y], axis=1), psi[i])
             print('PSI{}'.format(i + 1))
+            text.append('PSI{}'.format(i + 1))
             print(temp.to_string())
+            text.append(temp.to_string())
             print('---------------------')
+            text.append('---------------------')
         print('матриця А1')
+        text.append('матриця А1')
         print(A1.to_string())
+        text.append(A1.to_string())
         print('-------------------------')
+        text.append('-------------------------')
         print('Перебудовані Y')
+        text.append('Перебудовані Y')
         print(y_new.to_string())
+        text.append(y_new.to_string())
         print('-------------------------')
+        text.append('-------------------------')
         print('Коефіцієнти c')
+        text.append('Коефіцієнти c')
         print(c.to_string())
+        text.append(c.to_string())
         print('-------------------------')
+        text.append('-------------------------')
         print('Побудований прогноз')
+        text.append(fit_res.to_string())
         print(fit_res.to_string())
+        text.append('-------------------------')
         print('-------------------------')
+        text.append('Похибки')
         print('Похибки')
+        text.append(errors.to_string())
         print(errors.to_string())
+        text.append('-------------------------')
         print('-------------------------')
+        text.append('Норми похибок')
         print('Норми похибок')
+        text.append(nor_errors.to_string())
         print(nor_errors.to_string())
+        text.append('-------------------------')
         print('-------------------------')
+        text.append('\n\n')
         print('\n\n')
+        text.append('Нормалізований варіант')
         print('Нормалізований варіант')
+        text.append('-------------------------')
         print('-------------------------')
+        text.append('Вхідні дані')
         print('Вхідні дані')
+        text.append(norm_data.to_string())
         print(norm_data.to_string())
+        text.append('-------------------------')
         print('-------------------------')
+        text.append('Матриця А')
         print('Матриця А')
+        text.append(norm_A.to_string())
         print(norm_A.to_string())
+        text.append('-------------------------')
         print('-------------------------')
+        text.append('Значення лямбд')
         print('Значення лямбд')
+        text.append(lambdas_norm.to_string())
         print(lambdas_norm.to_string())
+        text.append('-------------------------')
         print('-------------------------')
         for i in range(psi_norm.shape[0]):
             temp = reduce(lambda x, y: pd.concat([x, y], axis=1), psi_norm[i])
             print('PSI{}'.format(i + 1))
+            text.append('PSI{}'.format(i + 1))
             print(temp.to_string())
+            text.append(temp.to_string())
             print('---------------------')
+            text.append('---------------------')
         print('матриця А1')
+        text.append('матриця А1')
         print(A1_norm.to_string())
+        text.append(A1_norm.to_string())
         print('-------------------------')
+        text.append('-------------------------')
         print('Перебудовані Y')
+        text.append('Перебудовані Y')
         print(y_new_normalized.to_string())
+        text.append(y_new_normalized.to_string())
         print('-------------------------')
+        text.append('-------------------------')
         print('Коефіцієнти c')
+        text.append('Коефіцієнти c')
         print(c_norm.to_string())
+        text.append(c_norm.to_string())
         print('-------------------------')
+        text.append('-------------------------')
+        text.append('Побудований прогноз')
         print('Побудований прогноз')
+        text.append(fit_res_norm.to_string())
         print(fit_res_norm.to_string())
+        text.append('-------------------------')
         print('-------------------------')
+        text.append('Похибки')
         print('Похибки')
+        text.append(errors_norm.to_string())
         print(errors_norm.to_string())
+        text.append('-------------------------')
         print('-------------------------')
+        text.append('Норми похибок')
         print('Норми похибок')
+        text.append(nor_errors_norm.to_string())
         print(nor_errors_norm.to_string())
+
+        return ('\n').join(text)
 
     def main(self, print_=False):
         prepared_data = self._prepare_data()
@@ -251,9 +319,9 @@ class Solve(object):
         fitnes_result_normalized, error_normalized = self._get_fitness_function(Fi_normalized, b_normalized,
                                                                                 coefs_normalized)
 
-        self._save_data(prepared_data, normalized_data, A, A_normalized, lambdas, lambdas_normalized,
+        self._save_data(prepared_data, normalized_data, pd.DataFrame(A), pd.DataFrame(A_normalized), lambdas, lambdas_normalized,
                         np.array(psi), np.array(psi_normalized), pd.DataFrame(A1),
-                        pd.DataFrame(A1_normalized), b, b_normalized,
+                        pd.DataFrame(A1_normalized), pd.DataFrame(b), pd.DataFrame(b_normalized),
                         pd.DataFrame(coefs), pd.DataFrame(coefs_normalized), pd.DataFrame(fitnes_result).T,
                         pd.DataFrame(fitnes_result_normalized).T, pd.DataFrame(error).T,
                         pd.DataFrame(error_normalized).T,
@@ -261,18 +329,18 @@ class Solve(object):
                         pd.DataFrame(pd.DataFrame(error_normalized).T.apply(lambda x: np.linalg.norm(x))).T)
 
         if print_:
-            self.print_data(prepared_data, normalized_data, A, A_normalized, lambdas, lambdas_normalized,
+            self.print_data(prepared_data, normalized_data, pd.DataFrame(A), pd.DataFrame(A_normalized), lambdas, lambdas_normalized,
                             np.array(psi), np.array(psi_normalized), pd.DataFrame(A1),
-                            pd.DataFrame(A1_normalized), b, b_normalized,
+                            pd.DataFrame(A1_normalized), pd.DataFrame(b), pd.DataFrame(b_normalized),
                             pd.DataFrame(coefs), pd.DataFrame(coefs_normalized), pd.DataFrame(fitnes_result).T,
                             pd.DataFrame(fitnes_result_normalized).T, pd.DataFrame(error).T,
                             pd.DataFrame(error_normalized).T,
                             pd.DataFrame(pd.DataFrame(error).T.apply(lambda x: np.linalg.norm(x))).T,
                             pd.DataFrame(pd.DataFrame(error_normalized).T.apply(lambda x: np.linalg.norm(x))).T)
 
-        return [prepared_data, normalized_data, A, A_normalized, lambdas, lambdas_normalized,
+        return [prepared_data, normalized_data, pd.DataFrame(A), pd.DataFrame(A_normalized), lambdas, lambdas_normalized,
                 np.array(psi), np.array(psi_normalized), pd.DataFrame(A1),
-                pd.DataFrame(A1_normalized), b, b_normalized,
+                pd.DataFrame(A1_normalized), pd.DataFrame(b), pd.DataFrame(b_normalized),
                 pd.DataFrame(coefs), pd.DataFrame(coefs_normalized), pd.DataFrame(fitnes_result).T,
                 pd.DataFrame(fitnes_result_normalized).T, pd.DataFrame(error).T,
                 pd.DataFrame(error_normalized).T,
