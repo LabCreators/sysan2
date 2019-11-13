@@ -9,7 +9,7 @@ from task_solution import Solve
 
 app = QApplication(sys.argv)
 app.setApplicationName('SA-2')
-form_class, base_class = loadUiType('main_window.ui')
+form_class, base_class = loadUiType('main_window_new.ui')
 
 
 class MainWindow(QDialog, form_class):

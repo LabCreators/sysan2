@@ -32,12 +32,16 @@ class PolynomialBuilder(object):
         self.dt_norm = self._solution[1]
         self.y = self._solution[-12]
         self.y_norm = self._solution[-11]
+        self.deg = self._solution[-2]
         self.errors = self._solution[-6]
+        self.errors.columns = ['Y{}'.format(i+1) for i in range(len(self.deg))]
         self.errors_norm = self._solution[-5]
+        self.errors_norm.columns = ['Y{}'.format(i + 1) for i in range(len(self.deg))]
+        self.y.columns = ['Y{}'.format(i + 1) for i in range(len(self.deg))]
+        self.y_norm.columns = ['Y{}'.format(i + 1) for i in range(len(self.deg))]
         self.ft = self._solution[-8]
         self.ft_norm = self._solution[-7]
         self.p = self._solution[-1]
-        self.deg = self._solution[-2]
         use_cols = [['X{}{}'.format(i + 1, j + 1) for j in
                      range(len([el for el in self.dt.columns if el.find('X{}'.format(i + 1)) != -1]))]
                     for i in range(len(self.deg))][:-1]
@@ -45,11 +49,10 @@ class PolynomialBuilder(object):
         self.maxX = [self.dt[el].max(axis=0).max() for el in use_cols]
         self.minY = self.y.min(axis=0).min()
         self.maxY = self.y.max(axis=0).max()
-        self.psi = [[[self.lamb.loc[i, 'lambda_{}'.format(j+1)][0].tolist()] for j in range(len(self.p))] for i in range(len(self.deg))]
 
     def _form_lamb_lists(self):
 
-        self.lamb = [[[self.lamb.loc[i, 'lambda_{}'.format(j + 1)][0].tolist()] for j in range(len(self.p))]
+        self.psi = [[[self.lamb.loc[i, 'lambda_{}'.format(j + 1)][0].tolist()] for j in range(len(self.p))]
                 for i in range(len(self.deg))]
 
     def _transform_to_standard(self, coefs):
@@ -180,27 +183,28 @@ class PolynomialBuilder(object):
         fig, axes = plt.subplots(4, self.y.shape[1], figsize=(20, 20))
 
         for i in range(len(self.deg)):
-            axes[0][i].plot(self.dt['Y{}'.format(i + 1)])
+            axes[0][i].plot(self.y['Y{}'.format(i + 1)])
             axes[0][i].plot(self.ft.loc[:, i])
             axes[0][i].legend(['True', 'Predict'])
             axes[0][i].set_title('Not normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
 
         for i in range(len(self.deg)):
-            axes[1][i].plot(self.errors.apply(abs).loc[:, i])
+            axes[1][i].plot(self.errors.apply(abs).loc[:, 'Y{}'.format(i + 1)])
             axes[1][i].set_title('Not normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
 
 
         for i in range(len(self.deg)):
-            axes[2][i].plot(self.dt_norm['Y{}'.format(i + 1)])
+            axes[2][i].plot(self.y_norm['Y{}'.format(i + 1)])
             axes[2][i].plot(self.ft_norm.loc[:, i])
             axes[2][i].legend(['True', 'Predict'])
             axes[2][i].set_title('Normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
 
         for i in range(len(self.deg)):
-            axes[3][i].plot(self.errors_norm.apply(abs).loc[:, i])
+            axes[3][i].plot(self.errors_norm.apply(abs).loc[:, 'Y{}'.format(i + 1)])
             axes[3][i].set_title('Normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
 
-
+        plt.savefig('graphics/graph_{}_{}_{}.png'.format(self.p, self._solver.poly_type,
+                                                         self._solver.weights))
         manager = plt.get_current_fig_manager()
         manager.set_window_title('Graph')
         if os_name == 'posix':

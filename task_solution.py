@@ -70,11 +70,11 @@ class Solve(object):
     def _get_B(self, Y):
         if self.weights == 'average':
             Y = (Y.max(axis=1) + Y.min(axis=1)) / 2  # arguable, may be need not to normalize Y before this operation
-            return np.tile(Y.values.reshape(self.n, 1), (1, self.deg[-1]))
+            return np.tile(Y.values, (1, self.deg[-1])).reshape((self.n, self.deg[-1]))
         elif self.weights == 'width_interval':
-            np.tile((Y.max(axis=1) - Y.min(axis=1)).values.reshape(self.n, 1),
-                    (1, self.deg[-1]))  # arguable (same as above)
-        else:
+            np.tile((Y.max(axis=1) - Y.min(axis=1)).values, (1, self.deg[-1])
+                    ).reshape((self.n, self.deg[-1]))  # arguable (same as above)
+        elif self.weights == 'scaled':
             return Y
 
     def _evaluate_polynom(self, coefs, x):
