@@ -104,9 +104,13 @@ class Solve(object):
         return lambdas
 
     def _get_psi(self, A, lambdas):
-        psi = [[A.loc[:, [el for el in A.columns if el.find('X{}'.format(i + 1)) != -1]
-                ] * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(len(self.deg) - 1)] for j in
-               range(self.deg[-1])]
+        try:
+            psi = [[A.loc[:, [el for el in A.columns if el.find('X{}'.format(i + 1)) != -1]
+                    ] * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(len(self.deg) - 1)] for j in
+                   range(self.deg[-1])]
+        except:
+            psi = [[A * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(len(self.deg) - 1)] for j in
+                   range(self.deg[-1])]
         return psi
 
     def _get_A1(self, psi, y):
@@ -115,7 +119,10 @@ class Solve(object):
                 for i in range(self.deg[-1])]
 
     def _get_Fi(self, psi, a1):
-        fi = np.array([[psi[i][j] * a1[i][j] for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])])
+        try:
+            fi = np.array([[psi[i][j] * a1[i][j] for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])])
+        except:
+            fi = [[psi[i][j] * a1[i][j] for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])]
         fi = [reduce(lambda x, y: pd.concat([x, y], axis=1), fi[i]) for i in range(self.deg[-1])]
         return fi
 
@@ -138,7 +145,7 @@ class Solve(object):
             data.to_excel(writer, sheet_name='Вхідні дані')
             A.to_excel(writer, sheet_name='Матриця А')
             lambdas.to_excel(writer, sheet_name='Значення лямбд')
-            for i in range(psi.shape[0]):
+            for i in range(len(psi)):
                 temp = reduce(lambda x, y: pd.concat([x, y], axis=1), psi[i])
                 pd.DataFrame(temp).to_excel(writer, sheet_name='PSI{}'.format(i + 1))
             A1.to_excel(writer, sheet_name='матриця А1')
@@ -151,7 +158,7 @@ class Solve(object):
             norm_data.to_excel(writer, sheet_name='Вхідні дані (нормалізований варіант)')
             norm_A.to_excel(writer, sheet_name='Матриця А (нормалізований варіант)')
             lambdas_norm.to_excel(writer, sheet_name='Значення лямбд (нормалізований варіант)')
-            for i in range(psi_norm.shape[0]):
+            for i in range(len(psi_norm)):
                 temp = reduce(lambda x, y: pd.concat([x, y], axis=1), psi_norm[i])
                 temp.to_excel(writer, sheet_name='PSI{} (нормалізований варіант)'.format(i + 1))
             A1_norm.to_excel(writer, sheet_name='матриця А1 (нормалізований варіант)')
@@ -183,7 +190,7 @@ class Solve(object):
         text.append(lambdas.to_string())
         print('-------------------------')
         text.append('-------------------------')
-        for i in range(psi.shape[0]):
+        for i in range(len(psi)):
             temp = reduce(lambda x, y: pd.concat([x, y], axis=1), psi[i])
             print('PSI{}'.format(i + 1))
             text.append('PSI{}'.format(i + 1))
@@ -250,7 +257,7 @@ class Solve(object):
         print(lambdas_norm.to_string())
         text.append('-------------------------')
         print('-------------------------')
-        for i in range(psi_norm.shape[0]):
+        for i in range(len(psi_norm)):
             temp = reduce(lambda x, y: pd.concat([x, y], axis=1), psi_norm[i])
             print('PSI{}'.format(i + 1))
             text.append('PSI{}'.format(i + 1))
@@ -320,7 +327,7 @@ class Solve(object):
                                                                                 coefs_normalized)
 
         self._save_data(prepared_data, normalized_data, pd.DataFrame(A), pd.DataFrame(A_normalized), lambdas, lambdas_normalized,
-                        np.array(psi), np.array(psi_normalized), pd.DataFrame(A1),
+                        psi, psi_normalized, pd.DataFrame(A1),
                         pd.DataFrame(A1_normalized), pd.DataFrame(b), pd.DataFrame(b_normalized),
                         pd.DataFrame(coefs), pd.DataFrame(coefs_normalized), pd.DataFrame(fitnes_result).T,
                         pd.DataFrame(fitnes_result_normalized).T, pd.DataFrame(error).T,
@@ -330,7 +337,7 @@ class Solve(object):
 
         if print_:
             self.print_data(prepared_data, normalized_data, pd.DataFrame(A), pd.DataFrame(A_normalized), lambdas, lambdas_normalized,
-                            np.array(psi), np.array(psi_normalized), pd.DataFrame(A1),
+                            psi, psi_normalized, pd.DataFrame(A1),
                             pd.DataFrame(A1_normalized), pd.DataFrame(b), pd.DataFrame(b_normalized),
                             pd.DataFrame(coefs), pd.DataFrame(coefs_normalized), pd.DataFrame(fitnes_result).T,
                             pd.DataFrame(fitnes_result_normalized).T, pd.DataFrame(error).T,
@@ -339,7 +346,7 @@ class Solve(object):
                             pd.DataFrame(pd.DataFrame(error_normalized).T.apply(lambda x: np.linalg.norm(x))).T)
 
         return [prepared_data, normalized_data, pd.DataFrame(A), pd.DataFrame(A_normalized), lambdas, lambdas_normalized,
-                np.array(psi), np.array(psi_normalized), pd.DataFrame(A1),
+                psi, psi_normalized, pd.DataFrame(A1),
                 pd.DataFrame(A1_normalized), pd.DataFrame(b), pd.DataFrame(b_normalized),
                 pd.DataFrame(coefs), pd.DataFrame(coefs_normalized), pd.DataFrame(fitnes_result).T,
                 pd.DataFrame(fitnes_result_normalized).T, pd.DataFrame(error).T,

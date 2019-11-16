@@ -186,11 +186,15 @@ class PolynomialBuilder(object):
             axes[0][i].plot(self.y['Y{}'.format(i + 1)])
             axes[0][i].plot(self.ft.loc[:, i])
             axes[0][i].legend(['True', 'Predict'])
-            axes[0][i].set_title('Not normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
+            axes[0][i].set_title('Not normalized version: Degrees: {}, Poly type: {}, Lambdas: {}'.format(self.p,
+                                                                                                          self._solver.poly_type,
+                                                                                                          self._solver.splitted_lambdas))
 
         for i in range(len(self.deg)):
             axes[1][i].plot(self.errors.apply(abs).loc[:, 'Y{}'.format(i + 1)])
-            axes[1][i].set_title('Not normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
+            axes[1][i].set_title('Not normalized version: Degrees: {}, Poly type: {}, Lambdas: {}'.format(self.p,
+                                                                                                          self._solver.poly_type,
+                                                                                                          self._solver.splitted_lambdas))
 
 
         for i in range(len(self.deg)):
@@ -203,8 +207,8 @@ class PolynomialBuilder(object):
             axes[3][i].plot(self.errors_norm.apply(abs).loc[:, 'Y{}'.format(i + 1)])
             axes[3][i].set_title('Normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
 
-        plt.savefig('graphics/graph_{}_{}_{}.png'.format(self.p, self._solver.poly_type,
-                                                         self._solver.weights))
+        plt.savefig('graphics/graph_{}_{}_{}_{}.png'.format(self.p, self._solver.poly_type,
+                                                         self._solver.weights, self._solver.splitted_lambdas))
         manager = plt.get_current_fig_manager()
         manager.set_window_title('Graph')
         if os_name == 'posix':
