@@ -10,7 +10,7 @@ from custom_exceptions import *
 
 app = QApplication(sys.argv)
 app.setApplicationName('SA-2')
-form_class, base_class = loadUiType('main_window_new.ui')
+form_class, base_class = loadUiType('new_main_window.ui')
 
 
 class MainWindow(QDialog, form_class):
@@ -33,6 +33,8 @@ class MainWindow(QDialog, form_class):
             self.method = 'conjucate'
         elif self.radioLSTM.isChecked():
             self.method = 'LSTM'
+        elif self.radioCoordDesc.isChecked():
+            self.method = 'coordDesc'
 
         self.type = 'null'  
         if self.radio_cheb.isChecked():
@@ -142,6 +144,8 @@ class MainWindow(QDialog, form_class):
                 self.method = 'conjucate'
             elif sender == 'radioLSTM':
                 self.method = 'LSTM'
+            elif sender == 'radioCoordDesc':
+                self.method = 'coordDesc'
         return
 
     @pyqtSlot()
