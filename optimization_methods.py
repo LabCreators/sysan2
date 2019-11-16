@@ -335,7 +335,7 @@ def conjucate_gradients_method(func, params, eps, start=0, end=1, quadratic=True
     return steps
 
 
-def conjugate_gradient_method(A, b, eps):
+def conjugate_gradient_method(A, b, eps, maxiterations=100):
     '''
     Conjugate Gradient Method that solve equation Ax = b with given accuracy
     :param A:matrix A
@@ -355,7 +355,7 @@ def conjugate_gradient_method(A, b, eps):
             ri1 = ri-ai*A*vi # r i+1
             betai = -float(vi.T*A*ri1)/float(vi.T*A*vi) # beta i
             vi1 = ri1+betai*vi
-            if (np.linalg.norm(ri1)<eps) or i > 10 * n:
+            if (np.linalg.norm(ri1)<eps) or i > 10 * n or i > maxiterations:
                 break
             else:
                 xi,vi,ri = xi1,vi1,ri1
