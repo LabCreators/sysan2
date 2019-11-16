@@ -6,6 +6,7 @@ from PyQt5.uic import loadUiType
 
 from output import PolynomialBuilder
 from task_solution import Solve
+from custom_exceptions import *
 
 app = QApplication(sys.argv)
 app.setApplicationName('SA-2')
@@ -160,6 +161,8 @@ class MainWindow(QDialog, form_class):
             solved_data = solver.main()
             self.solution = PolynomialBuilder(solver, solved_data)
             self.results_field.setText(solver.print_data(*solved_data)+'\n\n'+self.solution.get_results())
+        except MethodNotFilledException:
+            QMessageBox.warning(self, 'Error!', 'You need to specify solving method!')
         except Exception as e:
             QMessageBox.warning(self,'Error!','Error happened during execution: ' + str(e))
         self.exec_button.setEnabled(True)

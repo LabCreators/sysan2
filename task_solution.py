@@ -4,6 +4,7 @@ from functools import reduce
 from optimization_methods import *
 import itertools
 import numpy as np
+from custom_exceptions import *
 
 
 class Solve(object):
@@ -45,6 +46,8 @@ class Solve(object):
             return conjugate_gradient_method(A.T * A, A.T * b, self.eps)
         elif self.solving_method == 'coordDesc':
             return coordinate_descent(A, b, self.eps)
+        else:
+            raise MethodNotFilledException
 
     def _norm_data(self, data):
         normalized_data = data.copy(deep=True)

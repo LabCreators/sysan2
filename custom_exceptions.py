@@ -1,0 +1,2 @@
+class MethodNotFilledException(Exception):
+    pass
