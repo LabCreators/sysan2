@@ -14,21 +14,22 @@ class BasicBasisGenerator:
             return pm([-2, 4]) * self.basis_smoothed_chebyshev(degree - 1) - self.basis_smoothed_chebyshev(degree - 2)
 
     def basis_smoothed_legendre(self, degree):
-        if not degree:
+        n = degree - 1
+        if not degree or degree == 0:
             return pm([1])
         elif degree == 1:
-            return pm([-1, 2])
+            return pm([0, 1])
         else:
-            return (pm([-2 * degree - 1, 4 * degree + 2]) * self.basis_smoothed_legendre(degree - 1) -
-                    degree * self.basis_smoothed_legendre(degree - 2)) / (degree + 1)
+            return pm([(2 * n + 1)/(n + 1)]) * pm([0,1]) * self.basis_smoothed_legendre(n) - (n/(n+1)) * self.basis_smoothed_legendre(n - 1)
 
     def basis_laguerre(self, degree):
-        if not degree:
+        k = degree - 1
+        if not degree or degree == 0:
             return pm([1])
         elif degree == 1:
             return pm([1, -1])
         else:
-            return pm([2 * degree + 1, -1]) * self.basis_laguerre(degree - 1) - pow(degree, 2) * self.basis_laguerre(degree - 2)
+            return (1/(k+1)) * (pm([2 * k + 1, -1]) * self.basis_laguerre(k) - k*self.basis_laguerre(k-1))
 
     def basis_hermite(self, degree):
         if not degree:

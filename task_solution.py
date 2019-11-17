@@ -6,6 +6,7 @@ import itertools
 import numpy as np
 from custom_exceptions import *
 from scipy.sparse.linalg import cg
+from sklearn.linear_model import Lasso, Ridge, LinearRegression
 
 
 class Solve(object):
@@ -46,7 +47,7 @@ class Solve(object):
         elif self.solving_method == 'conjucate':
             return cg(np.dot(A, A.T), b, tol=self.eps)[0] #conjugate_gradient_method(A, b, self.eps)
         elif self.solving_method == 'coordDesc':
-            return coordinate_descent(A, b, self.eps)
+            return Lasso().fit(A, b).coef_ #coordinate_descent(A, b, self.eps) #Ridge().fit(A, b).coef_
         else:
             raise MethodNotFilledException
 
@@ -125,7 +126,13 @@ class Solve(object):
                 psi = [[(A.T * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0]).T for i in range(len(self.deg) - 1)] for j in
                        range(self.deg[-1])]
         else:
-            psi = None
+            if self.splitted_lambdas:
+                psi = [[A.loc[:, [el for el in A.columns if el.find('X{}'.format(i + 1)) != -1]
+                        ] * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(len(self.deg) - 1)] for j in
+                       range(self.deg[-1])]
+            else:
+                psi = [[A * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(len(self.deg) - 1)] for j in
+                       range(self.deg[-1])]
         return psi
 
     def _get_A1(self, psi, y):
@@ -144,13 +151,21 @@ class Solve(object):
                 fi = np.array([[(psi[i][j].T * a1[i][j]).T for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])])
             else:
                 fi = [[(psi[i][j].T * a1[i][j]).T for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])]
+        else:
+            if self.splitted_lambdas:
+                fi = np.array([[psi[i][j] * a1[i][j] for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])])
+            else:
+                fi = [[psi[i][j] * a1[i][j] for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])]
         fi = [reduce(lambda x, y: pd.concat([x, y], axis=1), fi[i]) for i in range(self.deg[-1])]
         return fi
 
     def _get_coefs(self, fi, y):
         y = pd.DataFrame(y)
-        return [self._minimize_equation(np.dot(fi[i].T, fi[i]),
+        if self.solving_method == 'conjucate':
+            return [self._minimize_equation(np.dot(fi[i].T, fi[i]),
                                         np.dot(fi[i].T, y.iloc[:, i])) for i in range(self.deg[-1])]
+        else:
+            return [self._minimize_equation(fi[i], y.iloc[:, i]) for i in range(self.deg[-1])]
 
     # TODO Fitness function for normalize version
     def _get_fitness_function(self, fi, y, coefs):

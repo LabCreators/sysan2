@@ -363,13 +363,36 @@ def conjugate_gradient_method(A, b, eps, maxiterations=100):
             print("There is a problem with minimization.")
     return np.matrix(xi1)
 
+def conjucate_grads(A, b, x=None):
+    n = len(b)
+    if isinstance(x, type(None)):
+        x = np.ones(n)
+    r = np.dot(A, x) - b
+    p = - r
+    r_k_norm = np.dot(r, r)
+    for i in range(2*n):
+        Ap = np.dot(A, p)
+        alpha = r_k_norm / np.dot(p, Ap)
+        x += alpha * p
+        r += alpha * Ap
+        r_kplus1_norm = np.dot(r, r)
+        beta = r_kplus1_norm / r_k_norm
+        r_k_norm = r_kplus1_norm
+        if r_kplus1_norm < 1e-5:
+            print('Itr:', i)
+            break
+        p = beta * p - r
+    return x
+
 
 def coordinate_descent(A, b, eps, maxIterations = 100):
     A = np.array(A)
     N = A.shape[0]
-    x = [0 for i in range(N)]
+    x = b #[0 for i in range(N)]
     xprev = [0.0 for i in range(N)]
-    for i in range(maxIterations):
+    norm = N
+    it = 0
+    while norm > eps or it < maxIterations:
         for j in range(N):
             xprev[j] = x[j]
         for j in range(N):
@@ -386,6 +409,50 @@ def coordinate_descent(A, b, eps, maxIterations = 100):
         if oldnorm == 0.0:
             oldnorm = 1.0
         norm = diff1norm / oldnorm
-        if (norm < eps) and i != 0:
-            return x
+        it+=1
+    return x
 
+
+def predict_output(feature_matrix, weights):
+    # assume feature_matrix is a numpy matrix containing the features as columns and weights is a corresponding numpy array
+    # create the predictions vector by using np.dot()
+    predictions = np.dot(feature_matrix,weights)
+    return(predictions)
+
+def lasso_coordinate_descent_step(num_features, feature_matrix, output, weights, l1_penalty):
+    # compute prediction
+    prediction = predict_output(feature_matrix, weights)
+    #z_i= (feature_matrix*feature_matrix).sum()
+
+    for i in range(num_features+1):
+    # compute ro[i] = SUM[ [feature_i]*(output - prediction + weight[i]*[feature_i]) ]
+        ro_i = (feature_matrix[:,i]*(output - prediction+weights[i]*feature_matrix[:,i])).sum()
+        if i == 0: # intercept -- do not regularize
+            new_weight_i = ro_i
+        elif ro_i < -l1_penalty/2.:
+            new_weight_i = (ro_i +(l1_penalty/2))
+        elif ro_i > l1_penalty/2.:
+            new_weight_i = (ro_i -(l1_penalty/2))
+        else:
+            new_weight_i = 0.
+    return new_weight_i
+
+
+def lasso_cyclical_coordinate_descent(feature_matrix, output, initial_weights,
+                                      l1_penalty, tolerance):
+    condition = True
+    max_change=0
+    while (condition == True):
+        max_change = 0
+        for i in range(len(initial_weights)):
+            #max_change=0
+            old_weight_i= initial_weights[i]
+            initial_weights[i] =lasso_coordinate_descent_step(i,
+                                                      feature_matrix, output,
+                                                      initial_weights, l1_penalty)
+            coordinate_change = abs(old_weight_i - initial_weights[i])
+            if coordinate_change > max_change:
+                max_change = coordinate_change
+        if (coordinate_change < tolerance):
+            condition = False
+    return initial_weights
