@@ -47,7 +47,7 @@ class Solve(object):
         elif self.solving_method == 'conjucate':
             return cg(np.dot(A, A.T), b, tol=self.eps)[0] #conjugate_gradient_method(A, b, self.eps)
         elif self.solving_method == 'coordDesc':
-            return Lasso().fit(A, b).coef_ #coordinate_descent(A, b, self.eps) #Ridge().fit(A, b).coef_
+            return Ridge(alpha=self.eps).fit(A, b).coef_ #coordinate_descent(A, b, self.eps) #Ridge().fit(A, b).coef_
         else:
             raise MethodNotFilledException
 
@@ -361,6 +361,9 @@ class Solve(object):
         coefs_normalized = self._get_coefs(Fi_normalized, b_normalized)
         fitnes_result_normalized, error_normalized = self._get_fitness_function(Fi_normalized, b_normalized,
                                                                                 coefs_normalized)
+        if self.solving_method == 'coordDesc':
+            fitnes_result_normalized = [(el - min(el)) / (max(el) - min(el)) for el in fitnes_result_normalized]
+            error_normalized = [(el - min(el)) / (max(el) - min(el)) for el in error_normalized]
 
         self._save_data(prepared_data, normalized_data, pd.DataFrame(A), pd.DataFrame(A_normalized), lambdas, lambdas_normalized,
                         psi, psi_normalized, pd.DataFrame(A1),
