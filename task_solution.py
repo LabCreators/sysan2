@@ -32,7 +32,11 @@ class Solve(object):
         new_cols = list(itertools.chain(*np.unique([[el + str(i)
                                                      for i in range(1, new_cols.count(el) + 1)] for el in new_cols])))
         dt = pd.read_csv(self.filename_input, sep='\t', header=None).astype(float)
-        dt.columns = new_cols
+        try:
+            dt.columns = new_cols
+        except:
+            dt = dt.iloc[:, :-2]
+            dt.columns = new_cols
         return dt
 
     def _minimize_equation(self, A, b):
@@ -74,11 +78,18 @@ class Solve(object):
 
     def _get_B(self, Y):
         if self.weights == 'average':
-            Y = (Y.max(axis=1) + Y.min(axis=1)) / 2  # arguable, may be need not to normalize Y before this operation
-            return np.tile(Y.values, (1, self.deg[-1])).reshape((self.n, self.deg[-1]))
+            Y_res = (Y.max(axis=1) + Y.min(axis=1)) / 2  # arguable, may be need not to normalize Y before this operation
+            try:
+                return np.tile(Y_res.values, (1, self.deg[-1])).reshape((self.n, self.deg[-1]))
+            except:
+                return Y
         elif self.weights == 'width_interval':
-            return np.tile((Y.max(axis=1) - Y.min(axis=1)).values, (1, self.deg[-1])
+            Y_res = (Y.max(axis=1) - Y.min(axis=1)).values
+            try:
+                return np.tile(Y_res, (1, self.deg[-1])
                     ).reshape((self.n, self.deg[-1]))  # arguable (same as above)
+            except:
+                return Y
         elif self.weights == 'scaled':
             return Y
 
@@ -94,10 +105,10 @@ class Solve(object):
         return A
 
     def _get_lambdas(self, A, Y):
-        lambdas = pd.DataFrame(columns=['lambda_{}'.format(i) for i in range(1, self.deg[-1])])
+        lambdas = pd.DataFrame(columns=['lambda_{}'.format(i+1) for i in range(self.deg[-1])])
         A = pd.DataFrame(A)
         Y = pd.DataFrame(Y)
-        for i, j in itertools.product(range(self.deg[-1]), range(len(self.deg) - 1)):
+        for i, j in itertools.product(range(self.deg[-1]), range(self.deg[-1])):
             if self.splitted_lambdas:
                 use_cols = [el for el in A.columns if el.find('X{}'.format(j + 1)) != -1]
                 train_data = A.loc[:, use_cols]
@@ -105,67 +116,67 @@ class Solve(object):
                 lambdas.loc[i, lambdas.columns[j]] = [self._minimize_equation(a.T.values, Y.loc[:, Y.columns[i]])]
             else:
                 a = A.T * Y.loc[:, Y.columns[i]]
-                lambdas.loc[i, lambdas.columns[j]] = [self._minimize_equation(a.T.values, Y.loc[:, Y.columns[i]])]
+                lambdas.loc[i, lambdas.columns[j]] = [self._minimize_equation(a.T.fillna(0).values, Y.loc[:, Y.columns[i]])]
         return lambdas
 
     def _get_psi(self, A, lambdas):
         if self.solving_method == 'LSTM':
             if self.splitted_lambdas:
                 psi = [[A.loc[:, [el for el in A.columns if el.find('X{}'.format(i + 1)) != -1]
-                        ] * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(len(self.deg) - 1)] for j in
+                        ] * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(self.deg[-1])] for j in
                        range(self.deg[-1])]
             else:
-                psi = [[A * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(len(self.deg) - 1)] for j in
+                psi = [[A * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(self.deg[-1])] for j in
                        range(self.deg[-1])]
         elif self.solving_method == 'conjucate':
             if self.splitted_lambdas:
                 psi = [[(A.T.loc[[el for el in A.columns if el.find('X{}'.format(i + 1)) != -1],:
-                        ] * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0]).T for i in range(len(self.deg) - 1)] for j in
+                        ] * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0]).T for i in range(self.deg[-1])] for j in
                        range(self.deg[-1])]
             else:
-                psi = [[(A.T * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0]).T for i in range(len(self.deg) - 1)] for j in
+                psi = [[(A.T * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0]).T for i in range(self.deg[-1])] for j in
                        range(self.deg[-1])]
         else:
             if self.splitted_lambdas:
                 psi = [[A.loc[:, [el for el in A.columns if el.find('X{}'.format(i + 1)) != -1]
-                        ] * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(len(self.deg) - 1)] for j in
+                        ] * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(self.deg[-1])] for j in
                        range(self.deg[-1])]
             else:
-                psi = [[A * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(len(self.deg) - 1)] for j in
+                psi = [[A * lambdas.loc[j, 'lambda_{}'.format(i + 1)][0] for i in range(self.deg[-1])] for j in
                        range(self.deg[-1])]
         return psi
 
     def _get_A1(self, psi, y):
         y = pd.DataFrame(y)
-        return [[self._minimize_equation(psi[i][j][:], y.loc[:, y.columns[i]]) for j in range(len(self.deg) - 1)]
+        return [[self._minimize_equation(psi[i][j][:].fillna(0), y.loc[:, y.columns[i]]) for j in range(self.deg[-1])]
                 for i in range(self.deg[-1])]
 
     def _get_Fi(self, psi, a1):
         if self.solving_method == 'LSTM':
             if self.splitted_lambdas:
-                fi = np.array([[psi[i][j] * a1[i][j] for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])])
+                fi = np.array([[psi[i][j] * a1[i][j] for j in range(self.deg[-1])] for i in range(self.deg[-1])])
             else:
-                fi = [[psi[i][j] * a1[i][j] for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])]
+                fi = [[psi[i][j] * a1[i][j] for j in range(self.deg[-1])] for i in range(self.deg[-1])]
         elif self.solving_method == 'conjucate':
             if self.splitted_lambdas:
-                fi = np.array([[(psi[i][j].T * a1[i][j]).T for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])])
+                fi = np.array([[(psi[i][j].T * a1[i][j]).T for j in range(self.deg[-1])] for i in range(self.deg[-1])])
             else:
-                fi = [[(psi[i][j].T * a1[i][j]).T for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])]
+                fi = [[(psi[i][j].T * a1[i][j]).T for j in range(self.deg[-1])] for i in range(self.deg[-1])]
         else:
             if self.splitted_lambdas:
-                fi = np.array([[psi[i][j] * a1[i][j] for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])])
+                fi = np.array([[psi[i][j] * a1[i][j] for j in range(self.deg[-1])] for i in range(self.deg[-1])])
             else:
-                fi = [[psi[i][j] * a1[i][j] for j in range(len(self.deg) - 1)] for i in range(self.deg[-1])]
+                fi = [[psi[i][j] * a1[i][j] for j in range(self.deg[-1])] for i in range(self.deg[-1])]
         fi = [reduce(lambda x, y: pd.concat([x, y], axis=1), fi[i]) for i in range(self.deg[-1])]
         return fi
 
     def _get_coefs(self, fi, y):
         y = pd.DataFrame(y)
         if self.solving_method == 'conjucate':
-            return [self._minimize_equation(np.dot(fi[i].T, fi[i]),
-                                        np.dot(fi[i].T, y.iloc[:, i])) for i in range(self.deg[-1])]
+            return [self._minimize_equation(np.dot(fi[i].fillna(0).T, fi[i].fillna(0)),
+                                        np.dot(fi[i].fillna(0).T, y.iloc[:, i])) for i in range(self.deg[-1])]
         else:
-            return [self._minimize_equation(fi[i], y.iloc[:, i]) for i in range(self.deg[-1])]
+            return [self._minimize_equation(fi[i].fillna(0), y.iloc[:, i]) for i in range(self.deg[-1])]
 
     # TODO Fitness function for normalize version
     def _get_fitness_function(self, fi, y, coefs):

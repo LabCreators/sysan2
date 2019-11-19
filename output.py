@@ -34,11 +34,11 @@ class PolynomialBuilder(object):
         self.y_norm = self._solution[-11]
         self.deg = self._solution[-2]
         self.errors = self._solution[-6]
-        self.errors.columns = ['Y{}'.format(i+1) for i in range(len(self.deg))]
+        self.errors.columns = ['Y{}'.format(i+1) for i in range(self.deg[-1])]
         self.errors_norm = self._solution[-5]
-        self.errors_norm.columns = ['Y{}'.format(i + 1) for i in range(len(self.deg))]
-        self.y.columns = ['Y{}'.format(i + 1) for i in range(len(self.deg))]
-        self.y_norm.columns = ['Y{}'.format(i + 1) for i in range(len(self.deg))]
+        self.errors_norm.columns = ['Y{}'.format(i + 1) for i in range(self.deg[-1])]
+        self.y.columns = ['Y{}'.format(i + 1) for i in range(self.deg[-1])]
+        self.y_norm.columns = ['Y{}'.format(i + 1) for i in range(self.deg[-1])]
         self.ft = self._solution[-8]
         self.ft_norm = self._solution[-7]
         self.p = self._solution[-1]
@@ -52,8 +52,8 @@ class PolynomialBuilder(object):
 
     def _form_lamb_lists(self):
 
-        self.psi = [[[self.lamb.loc[i, 'lambda_{}'.format(j + 1)][0].tolist()] for j in range(len(self.p))]
-                for i in range(len(self.deg))]
+        self.psi = [[[self.lamb.loc[i, 'lambda_{}'.format(j + 1)][0].tolist()] for j in range(self.deg[-1])]
+                for i in range(self.deg[-1])]
 
     def _transform_to_standard(self, coefs):
         """
@@ -91,7 +91,7 @@ class PolynomialBuilder(object):
         :return: result string
         """
         return (' + ').join(list(
-            itertools.chain(*[['{0:.6f}*{symbol}{deg}(x{1}{2})'.format(self.a.loc[i, j][sum(self.p[:j]) + k] * self.psi[3][2][k][n],
+            itertools.chain(*[['{0:.6f}*{symbol}{deg}(x{1}{2})'.format(self.a.loc[i, j][sum(self.p[:j]) + k] * self.psi[i][j][k][n],
                                                                        j + 1, k + 1, symbol=self.symbol, deg=n)
                                for n in range(len(self.psi[i][j][k]))] for k in range(len(self.psi[i][j]))])))
 
@@ -107,7 +107,7 @@ class PolynomialBuilder(object):
                                                                         j + 1, k + 1, symbol=self.symbol, deg=n)
                                 for n in range(len(self.psi[i][j][k]))]
                                for k in range(len(self.psi[i][j]))]
-                              for j in range(len(self.p))])))))
+                              for j in range(self.deg[-1])])))))
 
     def _print_F_i_transformed_denormed(self, i):
         """
@@ -117,23 +117,26 @@ class PolynomialBuilder(object):
         """
         strings = list()
         constant = 0
-        for j in range(len(self.p)):
-            for k in range(len(self.psi[i][j])):
-                shift = sum(self.p[:j]) + k
-                raw_coeffs = self._transform_to_standard(self.c.loc[i, j] * self.a.loc[i, j][shift] * np.array(self.psi[i][j][k]))
-                diff = self.maxX[j] - self.minX[j]
-                mult_poly = np.poly1d(np.array([1 / diff, -self.minX[j]]) / diff)
-                add_poly = np.poly1d([1])
-                current_poly = np.poly1d([0])
-                for n in range(len(raw_coeffs)):
-                    current_poly += add_poly * raw_coeffs[n]
-                    add_poly *= mult_poly
-                current_poly = current_poly * (self.maxY - self.minY) + self.minY
-                constant += current_poly[0]
-                current_poly[0] = 0
-                current_poly = np.poly1d(current_poly.coeffs, variable='(x{0}{1})'.format(j + 1, k + 1))
-                strings.append(str(_Polynom(current_poly, '(x{0}{1})'.format(j + 1, k + 1))))
-        strings.append(str(constant))
+        try:
+            for j in range(self.deg[-1]):
+                for k in range(len(self.psi[i][j])):
+                    shift = sum(self.p[:j]) + k
+                    raw_coeffs = self._transform_to_standard(self.c.loc[i, j] * self.a.loc[i, j][shift] * np.array(self.psi[i][j][k]))
+                    diff = self.maxX[j] - self.minX[j]
+                    mult_poly = np.poly1d(np.array([1 / diff, -self.minX[j]]) / diff)
+                    add_poly = np.poly1d([1])
+                    current_poly = np.poly1d([0])
+                    for n in range(len(raw_coeffs)):
+                        current_poly += add_poly * raw_coeffs[n]
+                        add_poly *= mult_poly
+                    current_poly = current_poly * (self.maxY - self.minY) + self.minY
+                    constant += current_poly[0]
+                    current_poly[0] = 0
+                    current_poly = np.poly1d(current_poly.coeffs, variable='(x{0}{1})'.format(j + 1, k + 1))
+                    strings.append(str(_Polynom(current_poly, '(x{0}{1})'.format(j + 1, k + 1))))
+            strings.append(str(constant))
+        except:
+            pass
         return ' +\n'.join(strings)
 
     def _print_F_i_transformed(self, i):
@@ -144,7 +147,7 @@ class PolynomialBuilder(object):
         """
         strings = list()
         constant = 0
-        for j in range(len(self.p)):
+        for j in range(self.deg[-1]):
             for k in range(len(self.psi[i][j])):
                 shift = sum(self.p[:j]) + k
                 current_poly = np.poly1d(self._transform_to_standard(self.c.loc[i, j] * self.a.loc[i, j][shift] *
@@ -164,11 +167,11 @@ class PolynomialBuilder(object):
         self._form_lamb_lists()
         psi_strings = list(itertools.chain(*list(itertools.chain(*[[
             ['(Psi{1}{2})[{0}]={result}\n'.format(i + 1, j + 1, k + 1, result=self._print_psi_i_jk(i, j, k))
-             for k in range(1)] for j in range(len(self.p))]
+             for k in range(1)] for j in range(self.deg[-1])]
             for i in range(self.y.shape[1])]))))
         phi_strings = list(
             itertools.chain(*[['(Phi{1})[{0}]={result}\n'.format(i + 1, j + 1, result=self._print_phi_i_j(i, j))
-                               for j in range(len(self.p))]
+                               for j in range(self.deg[-1])]
                               for i in range(self.y.shape[1])]))
         f_strings = ['(F{0})={result}\n'.format(i + 1, result=self._print_F_i(i)) for i in range(self.y.shape[1])]
         f_strings_transformed = [
@@ -182,7 +185,7 @@ class PolynomialBuilder(object):
     def plot_graphs(self):
         fig, axes = plt.subplots(4, self.y.shape[1], figsize=(20, 20))
 
-        for i in range(len(self.deg)):
+        for i in range(self.y.shape[1]):
             axes[0][i].plot(self.y['Y{}'.format(i + 1)])
             axes[0][i].plot(self.ft.loc[:, i])
             axes[0][i].legend(['True', 'Predict'])
@@ -190,20 +193,20 @@ class PolynomialBuilder(object):
                                                                                                           self._solver.poly_type,
                                                                                                           self._solver.splitted_lambdas))
 
-        for i in range(len(self.deg)):
+        for i in range(self.y.shape[1]):
             axes[1][i].plot(self.errors.apply(abs).loc[:, 'Y{}'.format(i + 1)])
             axes[1][i].set_title('Not normalized version: Degrees: {}, Poly type: {}, Lambdas: {}'.format(self.p,
                                                                                                           self._solver.poly_type,
                                                                                                           self._solver.splitted_lambdas))
 
 
-        for i in range(len(self.deg)):
+        for i in range(self.y.shape[1]):
             axes[2][i].plot(self.y_norm['Y{}'.format(i + 1)])
             axes[2][i].plot(self.ft_norm.loc[:, i])
             axes[2][i].legend(['True', 'Predict'])
             axes[2][i].set_title('Normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
 
-        for i in range(len(self.deg)):
+        for i in range(self.y.shape[1]):
             axes[3][i].plot(self.errors_norm.apply(abs).loc[:, 'Y{}'.format(i + 1)])
             axes[3][i].set_title('Normalized version: Degrees: {}, Poly type: {}'.format(self.p, self._solver.poly_type))
 
